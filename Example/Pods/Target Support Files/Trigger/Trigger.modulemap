@@ -1,0 +1,6 @@
+framework module Trigger {
+  umbrella header "Trigger-umbrella.h"
+
+  export *
+  module * { export * }
+}
