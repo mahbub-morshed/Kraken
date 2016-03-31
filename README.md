@@ -1,6 +1,6 @@
 # Trigger
 
-[![CI Status](http://img.shields.io/travis/Syed Sabir Salman-Al-Musawi/Trigger.svg?style=flat)](https://travis-ci.org/Syed Sabir Salman-Al-Musawi/Trigger)
+[![Build Status](https://travis-ci.org/sabirvirtuoso/Trigger.svg?branch=master)](https://travis-ci.org/sabirvirtuoso/Trigger)
 [![Version](https://img.shields.io/cocoapods/v/Trigger.svg?style=flat)](http://cocoapods.org/pods/Trigger)
 [![License](https://img.shields.io/cocoapods/l/Trigger.svg?style=flat)](http://cocoapods.org/pods/Trigger)
 [![Platform](https://img.shields.io/cocoapods/p/Trigger.svg?style=flat)](http://cocoapods.org/pods/Trigger)
