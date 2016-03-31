@@ -6,8 +6,6 @@
 //
 //
 
-import Foundation
-
 
 /// MARK:- Base of all injectable types
 
@@ -28,7 +26,7 @@ public final class Trigger {
   init() {
   }
   
-  static func register(interface: Any.Type, implementation: Injectable.Type, scope: DependencyScope = .Singleton) {
+  public static func register(interface: Any.Type, implementation: Injectable.Type, scope: DependencyScope = .Singleton) {
     let definitionKey = String(interface)
     definitionMap[definitionKey] = DependencyDefinition(scope: scope, implementationType: implementation)
     
@@ -39,7 +37,7 @@ public final class Trigger {
     }
   }
   
-  static func inject<T where T: Any>(typeToInject: T.Type) -> Injectable? {
+  public static func inject<T where T: Any>(typeToInject: T.Type) -> Injectable? {
     return resolve(typeToInject)
   }
   
@@ -74,12 +72,12 @@ public final class Trigger {
 
 extension Trigger {
   
-  static func remove(interface: Any.Type) {
+  public static func remove(interface: Any.Type) {
     let definitionKey = String(interface)
     remove(definitionKey: definitionKey)
   }
   
-  static func remove(definitionKey key: String) {
+  public static func remove(definitionKey key: String) {
     synchronized(Trigger.self) {
       definitionMap[key] = nil
       
@@ -89,7 +87,7 @@ extension Trigger {
     }
   }
   
-  static func reset() {
+  public static func reset() {
     synchronized(Trigger.self) {
       definitionMap.removeAll()
       singletons.removeAll()
