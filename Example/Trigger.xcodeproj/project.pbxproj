@@ -18,6 +18,8 @@
 		1B90AB411CABC84A0070CC23 /* GenericDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB401CABC84A0070CC23 /* GenericDataSource.swift */; };
 		1B90AB431CABC93F0070CC23 /* ServiceAImplDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB421CABC93F0070CC23 /* ServiceAImplDataSource.swift */; };
 		1B90AB451CABC9500070CC23 /* ServiceBImplDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB441CABC9500070CC23 /* ServiceBImplDataSource.swift */; };
+		1B90AB4F1CAD2EC30070CC23 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB4E1CAD2EC30070CC23 /* main.swift */; };
+		1B90AB511CAD31230070CC23 /* DependencyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */; };
 		59113B1B1BEC6B120F44ED9E /* Pods_Trigger_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BB8048C5F5BD855A7C2B60 /* Pods_Trigger_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -52,6 +54,8 @@
 		1B90AB401CABC84A0070CC23 /* GenericDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericDataSource.swift; sourceTree = "<group>"; };
 		1B90AB421CABC93F0070CC23 /* ServiceAImplDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAImplDataSource.swift; sourceTree = "<group>"; };
 		1B90AB441CABC9500070CC23 /* ServiceBImplDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceBImplDataSource.swift; sourceTree = "<group>"; };
+		1B90AB4E1CAD2EC30070CC23 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyConfigurator.swift; sourceTree = "<group>"; };
 		28D1875E5C7F5182139EBB61 /* Trigger.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Trigger.podspec; path = ../Trigger.podspec; sourceTree = "<group>"; };
 		581BF93833A2B6948DD61C88 /* Pods_Trigger_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trigger_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Trigger_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trigger_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,13 +144,15 @@
 		607FACD21AFB9204008FA782 /* Example for Trigger */ = {
 			isa = PBXGroup;
 			children = (
-				1B90AB2E1CABC1540070CC23 /* Service */,
-				1B90AB3F1CABC8110070CC23 /* DataSource */,
+				1B90AB4E1CAD2EC30070CC23 /* main.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				1B90AB3F1CABC8110070CC23 /* DataSource */,
+				1B90AB2E1CABC1540070CC23 /* Service */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for Trigger";
@@ -413,11 +419,13 @@
 				1B90AB411CABC84A0070CC23 /* GenericDataSource.swift in Sources */,
 				1B90AB341CABC6590070CC23 /* ServiceB.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				1B90AB511CAD31230070CC23 /* DependencyConfigurator.swift in Sources */,
 				1B90AB3A1CABC68F0070CC23 /* ServiceCImpl.swift in Sources */,
 				1B90AB431CABC93F0070CC23 /* ServiceAImplDataSource.swift in Sources */,
 				1B90AB321CABC6450070CC23 /* ServiceAImpl.swift in Sources */,
 				1B90AB301CABC62A0070CC23 /* ServiceA.swift in Sources */,
 				1B90AB381CABC67E0070CC23 /* ServiceC.swift in Sources */,
+				1B90AB4F1CAD2EC30070CC23 /* main.swift in Sources */,
 				1B90AB3C1CABC6980070CC23 /* ServiceD.swift in Sources */,
 				1B90AB451CABC9500070CC23 /* ServiceBImplDataSource.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,

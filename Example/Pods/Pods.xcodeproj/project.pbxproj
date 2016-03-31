@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B90AB271CABBEA90070CC23 /* DependencyScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB261CABBEA90070CC23 /* DependencyScope.swift */; };
-		1B90AB291CABBEC90070CC23 /* DependencyDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB281CABBEC90070CC23 /* DependencyDefinition.swift */; };
-		1B90AB2B1CABBED90070CC23 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB2A1CABBED90070CC23 /* Trigger.swift */; };
-		1B90AB2D1CABBEE60070CC23 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB2C1CABBEE60070CC23 /* Utils.swift */; };
+		045DA6F6C08DFCBC448B9F870FC36E22 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C01567FD57FCCC5A43A01CD0CAB89A /* Utils.swift */; };
 		29F19287DE66ADD581DE9F42A806629C /* Pods-Trigger_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3776030DD3782C0179718C0E07E327ED /* Pods-Trigger_Tests-dummy.m */; };
 		3494FF784672A0BDED7F5F89967F84FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */; };
+		4912F3E10DF7931D21BCDCE68E2F54BE /* DependencyDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6221250DE1373411829F74833543F /* DependencyDefinition.swift */; };
 		5A4533551387D9EE479134E17E22CBAB /* Pods-Trigger_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CF92FFAD2FB8C38D2B644E3E289301C1 /* Pods-Trigger_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61A440A44E6003FA973A534BC792FF4A /* Trigger-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BE38ED634B2D559B0FAA8E0A2AD177BB /* Trigger-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9B0C2F5054991E306599B6B0F912E7A3 /* Trigger-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F7CFB6DAED31709978489DD78D0E2D18 /* Trigger-dummy.m */; };
+		8D7DEBC57154A2A16D59D66C3939AB71 /* DependencyScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5572E4CCC718666ACDACE81D37E36C9A /* DependencyScope.swift */; };
+		9102AE96126008B8CC8B38411F822B4C /* Trigger-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F7CFB6DAED31709978489DD78D0E2D18 /* Trigger-dummy.m */; };
 		A2D58ED06BFAA11B5AF41017E01532CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */; };
 		B0C27913AAD7F2C1B007E502F7797C6F /* Pods-Trigger_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 61734E6F8B0838CADFF65CFE6A01EFF8 /* Pods-Trigger_Example-dummy.m */; };
 		B8891D49F261A91DEE187A3D0661896C /* Trigger.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8480BE2F4337007730B7EF1B7A591D06 /* Trigger.bundle */; };
+		C25E60B15FC4594D7838F6B1473158F3 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A5F7EEAECFED4CEA3D14B35B7C8E4C /* Trigger.swift */; };
 		C5E9AAD9BA1EC5FE5B63752244EBC122 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */; };
 		FBDE8804887F37D404058CE4C36F85ED /* Pods-Trigger_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A9DA7AF5D38672830A7694B24A052C28 /* Pods-Trigger_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -50,17 +50,15 @@
 /* Begin PBXFileReference section */
 		13ACBA2450355B4A71CB376CDE0C08CE /* Pods-Trigger_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Trigger_Example.release.xcconfig"; sourceTree = "<group>"; };
 		1AAB835536B544CA56E258520AB136E3 /* ResourceBundle-Trigger-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Trigger-Info.plist"; sourceTree = "<group>"; };
-		1B90AB261CABBEA90070CC23 /* DependencyScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyScope.swift; sourceTree = "<group>"; };
-		1B90AB281CABBEC90070CC23 /* DependencyDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyDefinition.swift; sourceTree = "<group>"; };
-		1B90AB2A1CABBED90070CC23 /* Trigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
-		1B90AB2C1CABBEE60070CC23 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		200867784429468CE5C30849DC8F1ECD /* Pods-Trigger_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Trigger_Tests-resources.sh"; sourceTree = "<group>"; };
 		367312F86EBFD3CECE664C1B4D6EAF22 /* Pods-Trigger_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Trigger_Example-frameworks.sh"; sourceTree = "<group>"; };
 		3776030DD3782C0179718C0E07E327ED /* Pods-Trigger_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Trigger_Tests-dummy.m"; sourceTree = "<group>"; };
 		3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		5572E4CCC718666ACDACE81D37E36C9A /* DependencyScope.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DependencyScope.swift; sourceTree = "<group>"; };
 		5586F939A02F5B019D8C236761B207BD /* Pods_Trigger_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trigger_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61734E6F8B0838CADFF65CFE6A01EFF8 /* Pods-Trigger_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Trigger_Example-dummy.m"; sourceTree = "<group>"; };
 		6C6F517F637DB31EE95B864DC11F908D /* Pods_Trigger_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trigger_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		72A5F7EEAECFED4CEA3D14B35B7C8E4C /* Trigger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
 		74DF7A9758C60517C4C45966FD58CC54 /* Trigger-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Trigger-prefix.pch"; sourceTree = "<group>"; };
 		7E5D5D1AC47FA5DCF5741F9E40D1708B /* Pods-Trigger_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Trigger_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		842280AFFE9007400019B35555696F77 /* Pods-Trigger_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Trigger_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -68,7 +66,9 @@
 		856372ADE58FFA4D44FA1DA2BF4EA695 /* Pods-Trigger_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Trigger_Example.modulemap"; sourceTree = "<group>"; };
 		8828E7363087ECEACE633F9E0052162D /* Pods-Trigger_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Trigger_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8DE3C93F794DC5285FA00EFA35A880B6 /* Pods-Trigger_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Trigger_Tests.modulemap"; sourceTree = "<group>"; };
+		A1C01567FD57FCCC5A43A01CD0CAB89A /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A9DA7AF5D38672830A7694B24A052C28 /* Pods-Trigger_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Trigger_Tests-umbrella.h"; sourceTree = "<group>"; };
+		ACA6221250DE1373411829F74833543F /* DependencyDefinition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DependencyDefinition.swift; sourceTree = "<group>"; };
 		ACCF4198986194BF01E025834D7AB8D5 /* Pods-Trigger_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Trigger_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		BE38ED634B2D559B0FAA8E0A2AD177BB /* Trigger-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Trigger-umbrella.h"; sourceTree = "<group>"; };
@@ -122,12 +122,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B5CC184EF3022D504340CCC1188E864 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				5847C4FDED3D83609EC13A90DA315127 /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
 		112C7921E3A497328D11F4930CBBC9CA /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		5847C4FDED3D83609EC13A90DA315127 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ACA6221250DE1373411829F74833543F /* DependencyDefinition.swift */,
+				5572E4CCC718666ACDACE81D37E36C9A /* DependencyScope.swift */,
+				72A5F7EEAECFED4CEA3D14B35B7C8E4C /* Trigger.swift */,
+				A1C01567FD57FCCC5A43A01CD0CAB89A /* Utils.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		6587F11E011B5FA74B9EAEDC615AFBEB /* Products */ = {
@@ -139,14 +158,6 @@
 				D9D1A57ACBA4C779A46C89340D31AD97 /* Trigger.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		76586531FFE54FB478B637995E6B5244 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				C2A2E68C9C2AFB0D0697EA3C5B3EEED0 /* Classes */,
-			);
-			path = Pod;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -204,7 +215,7 @@
 		BBA98C6A5F018634626E45296A9B1B6C /* Trigger */ = {
 			isa = PBXGroup;
 			children = (
-				76586531FFE54FB478B637995E6B5244 /* Pod */,
+				0B5CC184EF3022D504340CCC1188E864 /* Pod */,
 				A3DF33344525D8F02F5C146E971BEF1E /* Support Files */,
 			);
 			name = Trigger;
@@ -226,17 +237,6 @@
 				DB017A2453CB26523AE949D4B7F3E09E /* Pods-Trigger_Tests */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		C2A2E68C9C2AFB0D0697EA3C5B3EEED0 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				1B90AB261CABBEA90070CC23 /* DependencyScope.swift */,
-				1B90AB281CABBEC90070CC23 /* DependencyDefinition.swift */,
-				1B90AB2A1CABBED90070CC23 /* Trigger.swift */,
-				1B90AB2C1CABBEE60070CC23 /* Utils.swift */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		DB017A2453CB26523AE949D4B7F3E09E /* Pods-Trigger_Tests */ = {
@@ -309,7 +309,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 590FB3D3B292EEDE4C1B794C9447324E /* Build configuration list for PBXNativeTarget "Trigger" */;
 			buildPhases = (
-				86E56A6DF859A928F52E754C11AE5AD2 /* Sources */,
+				01E31366A6585552D22D9B007CCA95F2 /* Sources */,
 				C428C862923E1662F44713214F7934D2 /* Frameworks */,
 				F76B1923A851A31ECE014A027B5619CD /* Resources */,
 				57AB3A614FF95B1B2CA18D7330DF4F1B /* Headers */,
@@ -366,7 +366,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -407,11 +407,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		86E56A6DF859A928F52E754C11AE5AD2 /* Sources */ = {
+		01E31366A6585552D22D9B007CCA95F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B0C2F5054991E306599B6B0F912E7A3 /* Trigger-dummy.m in Sources */,
+				4912F3E10DF7931D21BCDCE68E2F54BE /* DependencyDefinition.swift in Sources */,
+				8D7DEBC57154A2A16D59D66C3939AB71 /* DependencyScope.swift in Sources */,
+				9102AE96126008B8CC8B38411F822B4C /* Trigger-dummy.m in Sources */,
+				C25E60B15FC4594D7838F6B1473158F3 /* Trigger.swift in Sources */,
+				045DA6F6C08DFCBC448B9F870FC36E22 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,11 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B90AB2D1CABBEE60070CC23 /* Utils.swift in Sources */,
-				1B90AB2B1CABBED90070CC23 /* Trigger.swift in Sources */,
 				B0C27913AAD7F2C1B007E502F7797C6F /* Pods-Trigger_Example-dummy.m in Sources */,
-				1B90AB271CABBEA90070CC23 /* DependencyScope.swift in Sources */,
-				1B90AB291CABBEC90070CC23 /* DependencyDefinition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +474,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Target Support Files/Trigger/ResourceBundle-Trigger-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = Trigger;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -636,7 +635,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Target Support Files/Trigger/ResourceBundle-Trigger-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = Trigger;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -665,7 +663,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Trigger/Trigger.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = Trigger;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -764,7 +761,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Trigger/Trigger.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = Trigger;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

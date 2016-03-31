@@ -8,7 +8,6 @@
 
 import UIKit
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -16,19 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        bootstrapDependencyContainer()
       
         return true
-    }
-  
-    private func bootstrapDependencyContainer() {
-        Trigger.register(ServiceA.self, implementation: ServiceAImpl.self, scope: .Prototype)
-        Trigger.register(ServiceB.self, implementation: ServiceBImpl.self, scope: .Prototype)
-      
-        Trigger.register(ServiceC.self, implementation: ServiceCImpl.self)
-      
-        Trigger.register(GenericDataSource<ServiceAImpl>.self, implementation: ServiceAImplDataSource.self, scope: .EagerSingleton)
-        Trigger.register(GenericDataSource<ServiceBImpl>.self, implementation: ServiceBImplDataSource.self)
     }
   
     func applicationWillResignActive(application: UIApplication) {
