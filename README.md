@@ -17,7 +17,7 @@ Trigger is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "Trigger"
+pod 'Trigger', :git => 'https://github.com/sabirvirtuoso/Trigger.git'
 ```
 
 ## Author
