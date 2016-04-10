@@ -26,7 +26,7 @@ public final class Trigger {
   init() {
   }
   
-  public static func register(interface: Any.Type, implementationType: Injectable.Type, scope: DependencyScope = .Singleton) {
+  public static func register(interface: Any.Type, implementationType: Injectable.Type, scope: DependencyScope = .Prototype) {
     let definitionKey = String(interface)
     definitionMap[definitionKey] = DependencyDefinition(scope: scope, implementationType: implementationType)
     
