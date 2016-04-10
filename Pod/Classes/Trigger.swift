@@ -26,17 +26,24 @@ public final class Trigger {
   init() {
   }
   
-  public static func register(interface: Any.Type, implementation: Injectable.Type, scope: DependencyScope = .Singleton) {
+  public static func register(interface: Any.Type, implementationType: Injectable.Type, scope: DependencyScope = .Singleton) {
     let definitionKey = String(interface)
-    definitionMap[definitionKey] = DependencyDefinition(scope: scope, implementationType: implementation)
+    definitionMap[definitionKey] = DependencyDefinition(scope: scope, implementationType: implementationType)
     
     switch scope {
-        case .EagerSingleton: singletons[definitionKey] = implementation.init()
+        case .EagerSingleton: singletons[definitionKey] = implementationType.init()
         case .Singleton: break
         case .Prototype: break
     }
   }
   
+  public static func register(interface: Any.Type, implementation: Injectable) {
+    let definitionKey = String(interface)
+    definitionMap[definitionKey] = DependencyDefinition(scope: .EagerSingleton, implementation: implementation)
+
+    singletons[definitionKey] = implementation
+  }
+
   public static func inject<T where T: Any>(typeToInject: T.Type) -> Injectable? {
     return resolve(typeToInject)
   }
@@ -51,14 +58,14 @@ public final class Trigger {
     switch dependencyDefinition.scope {
         case .EagerSingleton : return singletons[definitionKey]
         case .Singleton : return singletonInstance(definitionKey, dependencyDefinition: dependencyDefinition)
-        case .Prototype : return dependencyDefinition.implementationType.init()
+        case .Prototype : return dependencyDefinition.implementationType!.init()
     }
   }
   
   private static func singletonInstance(definitionKey: String, dependencyDefinition: DependencyDefinition) -> Injectable? {
     synchronized(Trigger.self) {
       if singletons[definitionKey] == nil {
-        singletons[definitionKey] = dependencyDefinition.implementationType.init()
+        singletons[definitionKey] = dependencyDefinition.implementationType!.init()
       }
     }
     

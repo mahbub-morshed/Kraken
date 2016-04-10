@@ -9,10 +9,12 @@
 public final class DependencyDefinition {
   
   var scope: DependencyScope
-  var implementationType: Injectable.Type
+  var implementationType: Injectable.Type?
+  var implementation: Injectable?
   
-  init(scope: DependencyScope, implementationType: Injectable.Type) {
+  init(scope: DependencyScope, implementationType: Injectable.Type? = nil, implementation: Injectable? = nil) {
     self.scope = scope
     self.implementationType = implementationType
+    self.implementation = implementation
   }
 }
