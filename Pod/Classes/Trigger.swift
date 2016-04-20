@@ -20,15 +20,15 @@ public protocol Injectable: AnyObject {
 
 public final class Trigger {
   
-  private static var definitionMap = [String: DependencyDefinition]()
-  private static var singletons = [String: Injectable]()
+  static var definitionMap = [String: DependencyDefinition]()
+  static var singletons = [String: Injectable]()
   
   init() {
   }
   
-  public static func register(interface: Any.Type, implementationType: Injectable.Type, scope: DependencyScope = .Prototype) {
+  public static func register(interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .Prototype) {
     let definitionKey = String(interface)
-    definitionMap[definitionKey] = DependencyDefinition(scope: scope, implementationType: implementationType)
+    definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType)
     
     switch scope {
         case .EagerSingleton: singletons[definitionKey] = implementationType.init()
@@ -37,38 +37,44 @@ public final class Trigger {
     }
   }
   
-  public static func register(interface: Any.Type, implementation: Injectable) {
+  public static func register(interface: Any, implementation: Injectable) {
     let definitionKey = String(interface)
-    definitionMap[definitionKey] = DependencyDefinition(scope: .EagerSingleton, implementation: implementation)
+    definitionMap[definitionKey] = ImplementationDefinition(scope: .EagerSingleton, implementation: implementation)
 
     singletons[definitionKey] = implementation
   }
 
-  public static func inject<T where T: Any>(typeToInject: T.Type) -> Injectable? {
+  public static func inject(typeToInject: Any) -> Injectable? {
     return resolve(typeToInject)
   }
-  
-  private static func resolve(typeToInject: Any.Type) -> Injectable? {
+
+  private static func resolve(typeToInject: Any) -> Injectable? {
     let definitionKey = String(typeToInject)
-    
-    guard let dependencyDefinition = definitionMap[definitionKey] else {
-      fatalError("No object registered for type: \(definitionKey). Did you forget to call register:implementation:scope: for type \(definitionKey)")
-    }
-    
-    switch dependencyDefinition.scope {
+
+    definitionExists(forKey: definitionKey)
+
+    let implementationDefinition = definitionMap[definitionKey] as! ImplementationDefinition
+
+    switch implementationDefinition.scope {
         case .EagerSingleton : return singletons[definitionKey]
-        case .Singleton : return singletonInstance(definitionKey, dependencyDefinition: dependencyDefinition)
-        case .Prototype : return dependencyDefinition.implementationType!.init()
+        case .Singleton : return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
+        case .Prototype : return implementationDefinition.implementationType!.init()
     }
   }
-  
-  private static func singletonInstance(definitionKey: String, dependencyDefinition: DependencyDefinition) -> Injectable? {
+
+  static func definitionExists(forKey definitionKey: String) {
+    guard let _ = definitionMap[definitionKey] else {
+      fatalError("No object registered for type: \(definitionKey). Did you forget to call register:implementation:scope: for type \(definitionKey)")
+    }
+  }
+
+  private static func singletonInstance(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
     synchronized(Trigger.self) {
       if singletons[definitionKey] == nil {
-        singletons[definitionKey] = dependencyDefinition.implementationType!.init()
+        singletons[definitionKey] = implementationDefinition.implementationType!.init()
       }
     }
-    
+
     return singletons[definitionKey]
   }
 }
@@ -79,7 +85,7 @@ public final class Trigger {
 
 extension Trigger {
   
-  public static func remove(interface: Any.Type) {
+  public static func remove(interface: Any) {
     let definitionKey = String(interface)
     remove(definitionKey: definitionKey)
   }
