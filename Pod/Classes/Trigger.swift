@@ -48,13 +48,19 @@ public final class Trigger {
     return resolve(typeToInject)
   }
 
-  private static func resolve(typeToInject: Any) -> Injectable? {
+  public static func resolve(typeToInject: Any) -> Injectable? {
     let definitionKey = String(typeToInject)
 
     definitionExists(forKey: definitionKey)
 
-    let implementationDefinition = definitionMap[definitionKey] as! ImplementationDefinition
+    if let implementationDefinition = definitionMap[definitionKey] as? ImplementationDefinition {
+      return resolveImplementation(definitionKey, implementationDefinition: implementationDefinition)
+    }
 
+    return resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+  }
+
+  private static func resolveImplementation(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
     switch implementationDefinition.scope {
         case .EagerSingleton : return singletons[definitionKey]
         case .Singleton : return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
