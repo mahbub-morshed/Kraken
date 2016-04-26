@@ -52,12 +52,17 @@ public final class Trigger {
     let definitionKey = String(typeToInject)
 
     definitionExists(forKey: definitionKey)
+    let dependencyDefinition: DependencyDefinition! = definitionMap[definitionKey]
 
-    if let implementationDefinition = definitionMap[definitionKey] as? ImplementationDefinition {
+    if let implementationDefinition = dependencyDefinition as? ImplementationDefinition {
       return resolveImplementation(definitionKey, implementationDefinition: implementationDefinition)
     }
 
-    return resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+    if dependencyDefinition.numberOfArguments == 0 {
+      return resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+    }
+
+    return resolveByAutoWiring(typeToInject)
   }
 
   private static func resolveImplementation(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {

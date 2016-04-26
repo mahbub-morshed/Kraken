@@ -7,30 +7,24 @@
 //
 
 public final class ImplementationDefinition: DependencyDefinition {
-  
-  var scope: DependencyScope
+
   var implementationType: Injectable.Type?
   var implementation: Injectable?
-  
+
   init(scope: DependencyScope, implementationType: Injectable.Type? = nil, implementation: Injectable? = nil) {
-    self.scope = scope
     self.implementationType = implementationType
     self.implementation = implementation
+    super.init(scope: scope)
   }
 }
 
 public final class FactoryDefinition<F>: DependencyDefinition {
 
-  var scope: DependencyScope
   var factory: F
-  var numberOfArguments: Int
-  var argumentTypes: [Any]?
 
   init(scope: DependencyScope, factory: F, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil) {
-    self.scope = scope
     self.factory = factory
-    self.numberOfArguments = numberOfArguments
-    self.argumentTypes = argumentTypes
+    super.init(scope: scope, numberOfArguments: numberOfArguments, argumentTypes: argumentTypes)
   }
 
   public func supportsAutowiring() -> Bool {
@@ -40,4 +34,15 @@ public final class FactoryDefinition<F>: DependencyDefinition {
   }
 }
 
-public protocol DependencyDefinition: class {}
+public class DependencyDefinition {
+
+  var scope: DependencyScope
+  var numberOfArguments: Int
+  var argumentTypes: [Any]?
+
+  init(scope: DependencyScope, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil) {
+    self.scope = scope
+    self.numberOfArguments = numberOfArguments
+    self.argumentTypes = argumentTypes
+  }
+}
