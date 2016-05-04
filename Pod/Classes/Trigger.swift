@@ -166,18 +166,6 @@ extension Trigger {
   public static func injectWeak(typeToInject: Any) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject)!)
   }
-
-  public static func injectWeak<Arg1>(typeToInject: Any, withRuntimeArguments arg1: Arg1) -> WeakDependency {
-    return WeakDependency(instance: inject(typeToInject, withArguments: arg1)!)
-  }
-
-  public static func injectWeak<Arg1, Arg2>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2) -> WeakDependency {
-    return WeakDependency(instance: inject(typeToInject, withArguments: arg1, arg2)!)
-  }
-
-  public static func injectWeak<Arg1, Arg2, Arg3>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) -> WeakDependency {
-    return WeakDependency(instance: inject(typeToInject, withArguments: arg1, arg2, arg3)!)
-  }
 }
 
 public final class WeakDependency {
