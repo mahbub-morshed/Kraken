@@ -12,7 +12,7 @@
 
 extension Trigger {
 
-  public static func register(interface: Any, scope: DependencyScope = .Prototype, factory: () -> Injectable?, completionHandler: ((a: Injectable) -> ())? = nil) {
+  public static func register(interface: Any, scope: DependencyScope = .Prototype, factory: () -> Injectable?, completionHandler: ((resolvedInstance: Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
     registerFactory(interface, scope: scope, factory: factory, completionHandler: completionHandler)
 

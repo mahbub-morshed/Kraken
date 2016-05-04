@@ -33,18 +33,11 @@ extension Trigger {
 
   private static func resolvedInstance(forType typeToInject: Any, withArgumentTypes arguments: [Any]) -> Injectable? {
     switch arguments.count {
-        case 1: return resolveFactory(typeToInject, withNumberOfRuntimeArguments: 1) {
-            (factory: (Injectable) -> Injectable?) in factory(Trigger.resolve(arguments[0].self)!)
-        }
-        case 2: return resolveFactory(typeToInject, withNumberOfRuntimeArguments: 2) {
-            (factory: (Injectable, Injectable) -> Injectable?) in factory(Trigger.resolve(arguments[0].self)!,
-                                                                          Trigger.resolve(arguments[1].self)!)
-        }
-        case 2: return resolveFactory(typeToInject, withNumberOfRuntimeArguments: 2) {
-            (factory: (Injectable, Injectable, Injectable) -> Injectable?) in factory(Trigger.resolve(arguments[0].self)!,
-                                                                                      Trigger.resolve(arguments[1].self)!,
-                                                                                      Trigger.resolve(arguments[2].self)!)
-        }
+        case 1: return Trigger.inject(typeToInject, withArguments: Trigger.resolve(arguments[0].self)!)
+        case 2: return Trigger.inject(typeToInject, withArguments: Trigger.resolve(arguments[0].self)!,
+                                      Trigger.resolve(arguments[1].self)!)
+        case 3: return Trigger.inject(typeToInject, withArguments: Trigger.resolve(arguments[0].self)!,
+                                      Trigger.resolve(arguments[1].self)!, Trigger.resolve(arguments[2].self)!)
         default:
             return nil
     }
