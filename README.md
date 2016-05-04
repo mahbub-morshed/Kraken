@@ -1,4 +1,4 @@
-# Trigger
+# Kraken
 
 [![Build Status](https://travis-ci.org/sabirvirtuoso/Trigger.svg?branch=master)](https://travis-ci.org/sabirvirtuoso/Trigger)
 [![Version](https://img.shields.io/cocoapods/v/Trigger.svg?style=flat)](http://cocoapods.org/pods/Trigger)
@@ -13,11 +13,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-Trigger is available through [CocoaPods](http://cocoapods.org). To install
+Kraken is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Trigger', :git => 'https://github.com/sabirvirtuoso/Trigger.git'
+pod 'Kraken'
 ```
 
 ## Author
