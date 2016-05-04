@@ -9,12 +9,20 @@ import Trigger
 
 class ServiceDImpl: ServiceD {
   
-  let serviceB = Trigger.inject(ServiceB) as! ServiceBImpl
+  var host: String!
+  var port: Int!
+  var serviceB: ServiceB!
   
   required init() {
   }
   
-  func myCompanyD() -> String {
-    return "therapD"
+  init(host: String, port: Int, serviceB: ServiceB) {
+    self.host = host
+    self.port = port
+    self.serviceB = serviceB
+  }
+
+  func myCompanyAddress() -> String {
+    return "My company address is \(host):\(port)"
   }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Trigger
 
 class ViewController: UIViewController {
   
@@ -16,7 +17,7 @@ class ViewController: UIViewController {
     let serviceBOne = ServiceBImpl()
     let serviceBTwo = ServiceBImpl()
   
-    let serviceD = ServiceDImpl()
+    let serviceD = Trigger.inject(ServiceD.self, withArguments: "localhost", 8080) as! ServiceDImpl
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,8 @@ class ViewController: UIViewController {
         print(unsafeAddressOf(serviceBOne.serviceC))
       
         print(unsafeAddressOf(serviceD.serviceB))
-        print(unsafeAddressOf(serviceD.serviceB.serviceC))
+        //print(unsafeAddressOf(serviceD.serviceB.serviceC))
+        print(serviceD.myCompanyAddress())
       
         print(unsafeAddressOf(serviceAOne.serviceB.serviceA!))
         print(unsafeAddressOf(serviceAOne.serviceC.serviceA!))

@@ -20,6 +20,8 @@
 		1B90AB451CABC9500070CC23 /* ServiceBImplDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB441CABC9500070CC23 /* ServiceBImplDataSource.swift */; };
 		1B90AB4F1CAD2EC30070CC23 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB4E1CAD2EC30070CC23 /* main.swift */; };
 		1B90AB511CAD31230070CC23 /* DependencyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */; };
+		1BD81EC41CD9B96400A17026 /* ServiceE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD81EC31CD9B96400A17026 /* ServiceE.swift */; };
+		1BD81EC61CD9B97500A17026 /* ServiceEImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD81EC51CD9B97500A17026 /* ServiceEImpl.swift */; };
 		59113B1B1BEC6B120F44ED9E /* Pods_Trigger_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BB8048C5F5BD855A7C2B60 /* Pods_Trigger_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -56,6 +58,8 @@
 		1B90AB441CABC9500070CC23 /* ServiceBImplDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceBImplDataSource.swift; sourceTree = "<group>"; };
 		1B90AB4E1CAD2EC30070CC23 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyConfigurator.swift; sourceTree = "<group>"; };
+		1BD81EC31CD9B96400A17026 /* ServiceE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceE.swift; sourceTree = "<group>"; };
+		1BD81EC51CD9B97500A17026 /* ServiceEImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceEImpl.swift; sourceTree = "<group>"; };
 		28D1875E5C7F5182139EBB61 /* Trigger.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Trigger.podspec; path = ../Trigger.podspec; sourceTree = "<group>"; };
 		581BF93833A2B6948DD61C88 /* Pods_Trigger_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trigger_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Trigger_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trigger_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +110,8 @@
 				1B90AB391CABC68F0070CC23 /* ServiceCImpl.swift */,
 				1B90AB3B1CABC6980070CC23 /* ServiceD.swift */,
 				1B90AB3D1CABC6AF0070CC23 /* ServiceDImpl.swift */,
+				1BD81EC31CD9B96400A17026 /* ServiceE.swift */,
+				1BD81EC51CD9B97500A17026 /* ServiceEImpl.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				1B90AB511CAD31230070CC23 /* DependencyConfigurator.swift in Sources */,
 				1B90AB3A1CABC68F0070CC23 /* ServiceCImpl.swift in Sources */,
+				1BD81EC61CD9B97500A17026 /* ServiceEImpl.swift in Sources */,
 				1B90AB431CABC93F0070CC23 /* ServiceAImplDataSource.swift in Sources */,
 				1B90AB321CABC6450070CC23 /* ServiceAImpl.swift in Sources */,
 				1B90AB301CABC62A0070CC23 /* ServiceA.swift in Sources */,
@@ -429,6 +436,7 @@
 				1B90AB3C1CABC6980070CC23 /* ServiceD.swift in Sources */,
 				1B90AB451CABC9500070CC23 /* ServiceBImplDataSource.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				1BD81EC41CD9B96400A17026 /* ServiceE.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

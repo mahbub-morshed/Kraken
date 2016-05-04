@@ -8,5 +8,5 @@
 import Trigger
 
 protocol ServiceD: Injectable {
-  func myCompanyD() -> String
+  func myCompanyAddress() -> String
 }
