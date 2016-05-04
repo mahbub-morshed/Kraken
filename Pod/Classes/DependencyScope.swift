@@ -7,8 +7,9 @@
 //
 
 public enum DependencyScope {
-  
+
   case Singleton
   case EagerSingleton
   case Prototype
+
 }

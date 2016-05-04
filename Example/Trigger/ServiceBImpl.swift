@@ -9,6 +9,8 @@ import Trigger
 
 class ServiceBImpl: ServiceB {
   
+  weak var serviceA: ServiceA?
+
   let serviceC = Trigger.inject(ServiceC) as! ServiceCImpl
   let serviceBImplDataSource = Trigger.inject(GenericDataSource<ServiceBImpl>) as! ServiceBImplDataSource
   

@@ -8,6 +8,8 @@
 
 class ServiceCImpl: ServiceC {
   
+  weak var serviceA: ServiceA?
+
   required init() {
   }
   

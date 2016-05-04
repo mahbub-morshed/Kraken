@@ -22,13 +22,14 @@ public final class Trigger {
   
   static var definitionMap = [String: DependencyDefinition]()
   static var singletons = [String: Injectable]()
+  static var resolvedInstances = [String: Injectable]()
   
   init() {
   }
   
-  public static func register(interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .Prototype) {
+  public static func register(interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .Prototype, completionHandler: ((resolvedInstance: Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
-    definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType)
+    definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType, completionHandler: completionHandler)
     
     switch scope {
         case .EagerSingleton: singletons[definitionKey] = implementationType.init()
@@ -48,21 +49,58 @@ public final class Trigger {
     return resolve(typeToInject)
   }
 
-  public static func resolve(typeToInject: Any) -> Injectable? {
-    let definitionKey = String(typeToInject)
+  private static var depth: Int = 0
 
+  public static func resolve(typeToInject: Any) -> Injectable? {
+    depth = depth + 1
+
+    defer {
+      depth = depth - 1
+
+        if depth == 0 {
+            resolvedInstances.removeAll()
+        }
+    }
+
+    let definitionKey = String(typeToInject)
     definitionExists(forKey: definitionKey)
+
+    if let definition = resolvedInstances[definitionKey] {
+      return definition
+    }
+
     let dependencyDefinition: DependencyDefinition! = definitionMap[definitionKey]
+    let resolvedInstance: Injectable?
 
     if let implementationDefinition = dependencyDefinition as? ImplementationDefinition {
-      return resolveImplementation(definitionKey, implementationDefinition: implementationDefinition)
+      resolvedInstance = resolveImplementation(definitionKey, implementationDefinition: implementationDefinition)
+      resolvedInstances[definitionKey] = resolvedInstance
+
+      defer {
+          invokeCompletionHandler(dependencyDefinition, resolvedInstance: resolvedInstance)
+      }
+
+      return resolvedInstance
     }
 
     if dependencyDefinition.numberOfArguments == 0 {
-      return resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+      resolvedInstance = resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+      resolvedInstances[definitionKey] = resolvedInstance
+
+      defer {
+          invokeCompletionHandler(dependencyDefinition, resolvedInstance: resolvedInstance)
+      }
+
+      return resolvedInstance
     }
 
     return resolveByAutoWiring(typeToInject)
+  }
+
+  private static func invokeCompletionHandler(dependencyDefinition: DependencyDefinition, resolvedInstance: Injectable?) {
+    if dependencyDefinition.completionHandler != nil && resolvedInstance != nil {
+      dependencyDefinition.completionHandler!(resolvedInstance!)
+    }
   }
 
   private static func resolveImplementation(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
@@ -125,19 +163,19 @@ extension Trigger {
 
 extension Trigger {
   
-  static func injectWeak(typeToInject: Any) -> WeakDependency {
+  public static func injectWeak(typeToInject: Any) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject)!)
   }
 
-  static func injectWeak<Arg1>(typeToInject: Any, withRuntimeArguments arg1: Arg1) -> WeakDependency {
+  public static func injectWeak<Arg1>(typeToInject: Any, withRuntimeArguments arg1: Arg1) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject, withArguments: arg1)!)
   }
 
-  static func injectWeak<Arg1, Arg2>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2) -> WeakDependency {
+  public static func injectWeak<Arg1, Arg2>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject, withArguments: arg1, arg2)!)
   }
 
-  static func injectWeak<Arg1, Arg2, Arg3>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) -> WeakDependency {
+  public static func injectWeak<Arg1, Arg2, Arg3>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject, withArguments: arg1, arg2, arg3)!)
   }
 }

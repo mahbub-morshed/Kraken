@@ -12,9 +12,9 @@
 
 extension Trigger {
 
-  public static func register(interface: Any, scope: DependencyScope = .Prototype, factory: () -> Injectable?) {
+  public static func register(interface: Any, scope: DependencyScope = .Prototype, factory: () -> Injectable?, completionHandler: ((a: Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
-    registerFactory(interface, scope: scope, factory: factory)
+    registerFactory(interface, scope: scope, factory: factory, completionHandler: completionHandler)
 
     switch scope {
         case .EagerSingleton: singletons[definitionKey] = factory()!
@@ -48,10 +48,10 @@ extension Trigger {
     }
   }
 
-  private static func registerFactory<F>(interface: Any, scope: DependencyScope, factory: F, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil) {
+  private static func registerFactory<F>(interface: Any, scope: DependencyScope, factory: F, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil, completionHandler: ((Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
 
-    definitionMap[definitionKey] = FactoryDefinition(scope: scope, factory: factory, numberOfArguments: numberOfArguments, argumentTypes: argumentTypes)
+    definitionMap[definitionKey] = FactoryDefinition(scope: scope, factory: factory, numberOfArguments: numberOfArguments, argumentTypes: argumentTypes, completionHandler: completionHandler)
   }
 }
 

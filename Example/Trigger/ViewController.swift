@@ -34,11 +34,15 @@ class ViewController: UIViewController {
   
     private func showReferenceAddress() {
         print(unsafeAddressOf(serviceAOne.serviceB))
+        print(unsafeAddressOf(serviceAOne.serviceC))
         print(unsafeAddressOf(serviceAOne.serviceB.serviceC))
+        print(unsafeAddressOf(serviceBOne.serviceC))
       
         print(unsafeAddressOf(serviceD.serviceB))
         print(unsafeAddressOf(serviceD.serviceB.serviceC))
       
+        print(unsafeAddressOf(serviceAOne.serviceB.serviceA!))
+        print(unsafeAddressOf(serviceAOne.serviceC.serviceA!))
         print(unsafeAddressOf(serviceAOne.serviceAImplDataSource))
       
         print(unsafeAddressOf(serviceBOne.serviceBImplDataSource))

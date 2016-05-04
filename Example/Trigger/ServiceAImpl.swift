@@ -10,6 +10,7 @@ import Trigger
 class ServiceAImpl: ServiceA {
   
   let serviceB = Trigger.inject(ServiceB) as! ServiceBImpl
+  let serviceC = Trigger.inject(ServiceC) as! ServiceCImpl
   let serviceAImplDataSource = Trigger.inject(GenericDataSource<ServiceAImpl>) as! ServiceAImplDataSource
   
   required init() {
