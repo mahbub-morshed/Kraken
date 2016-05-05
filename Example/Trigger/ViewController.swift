@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Trigger
+import Kraken
 
 class ViewController: UIViewController {
   

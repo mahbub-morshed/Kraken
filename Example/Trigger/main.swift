@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Trigger
+import Kraken
 
 DependencyConfigurator.bootstrapDependencies()
 

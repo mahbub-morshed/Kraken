@@ -1,0 +1,6 @@
+framework module Kraken {
+  umbrella header "Kraken-umbrella.h"
+
+  export *
+  module * { export * }
+}

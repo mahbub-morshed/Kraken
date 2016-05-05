@@ -2,11 +2,11 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'Trigger_Example' do
-  pod 'Trigger', :path => '../'
+  pod 'Kraken', :path => '../'
 end
 
 target 'Trigger_Tests' do
-  pod 'Trigger', :path => '../'
+  pod 'Kraken', :path => '../'
 
   
 end

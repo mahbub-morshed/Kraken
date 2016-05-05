@@ -6,7 +6,7 @@
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 
-import Trigger
+import Kraken
 
 class DependencyConfigurator {
   

@@ -1,16 +1,16 @@
 PODS:
-  - Trigger (0.1.0)
+  - Kraken (1.0.1)
 
 DEPENDENCIES:
-  - Trigger (from `../`)
+  - Kraken (from `../`)
 
 EXTERNAL SOURCES:
-  Trigger:
+  Kraken:
     :path: ../
 
 SPEC CHECKSUMS:
-  Trigger: ef576587a8680477e4ea1dcd7cf271e2ed034db6
+  Kraken: 63b268a40972c303ef553adfd6d9941972eb5175
 
-PODFILE CHECKSUM: 92c7fb08cab476ecba67ff07d599dd49ec8eafd7
+PODFILE CHECKSUM: b5d4fd3f22a1c8b88ca1486fb6e9ed3096bc9bb8
 
-COCOAPODS: 1.0.0.beta.4
+COCOAPODS: 1.0.0.rc.2

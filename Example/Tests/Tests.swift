@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import Trigger
+import Kraken
 
 class Tests: XCTestCase {
     
