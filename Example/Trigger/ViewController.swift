@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     let serviceBTwo = ServiceBImpl()
   
     let serviceD = Trigger.inject(ServiceD.self, withArguments: "localhost", 8080) as! ServiceDImpl
+    let serviceE = Trigger.inject(ServiceE) as! ServiceEImpl
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,8 @@ class ViewController: UIViewController {
       
         print(unsafeAddressOf(serviceBOne.serviceBImplDataSource))
         print(unsafeAddressOf(serviceBTwo.serviceBImplDataSource))
+
+        print(serviceE.myDependencyAddresses())
     }
 
     override func didReceiveMemoryWarning() {

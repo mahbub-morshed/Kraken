@@ -9,7 +9,7 @@
 import Kraken
 
 class DependencyConfigurator {
-  
+
   static func bootstrapDependencies() {
     Trigger.register(ServiceA.self, implementationType: ServiceAImpl.self, scope: .Singleton)
     Trigger.register(ServiceB.self, implementationType: ServiceBImpl.self, scope: .Singleton) {
@@ -32,5 +32,9 @@ class DependencyConfigurator {
 
     Trigger.register(GenericDataSource<ServiceAImpl>.self, implementationType: ServiceAImplDataSource.self, scope: .EagerSingleton)
     Trigger.register(GenericDataSource<ServiceBImpl>.self, implementationType: ServiceBImplDataSource.self, scope: .Singleton)
+
+    Trigger.register(ServiceE.self) {
+        ServiceEImpl(serviceA: $0, serviceB: $1, serviceC: $2)
+    }
   }
 }
