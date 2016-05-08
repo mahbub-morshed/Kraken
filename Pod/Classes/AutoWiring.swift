@@ -19,27 +19,10 @@ extension Trigger {
       return nil
     }
 
-    let filteredArguments = filteredArgumentTypesForAutoWiring(dependencyDefinition)
-    return resolvedInstance(forType: typeToInject, withArgumentTypes: filteredArguments!)
+    return dependencyDefinition.autoWiringFactory!()
   }
 
   private static func isAutoWiringSupported(forDefinition definition: DependencyDefinition) -> Bool {
-    return definition.numberOfArguments > 0 && filteredArgumentTypesForAutoWiring(definition)?.count > 0
-  }
-
-  private static func filteredArgumentTypesForAutoWiring(definition: DependencyDefinition) -> [Any]? {
-    return definition.argumentTypes?.filter({ $0 is Injectable })
-  }
-
-  private static func resolvedInstance(forType typeToInject: Any, withArgumentTypes arguments: [Any]) -> Injectable? {
-    switch arguments.count {
-        case 1: return Trigger.inject(typeToInject, withArguments: Trigger.resolve(arguments[0].self)!)
-        case 2: return Trigger.inject(typeToInject, withArguments: Trigger.resolve(arguments[0].self)!,
-                                      Trigger.resolve(arguments[1].self)!)
-        case 3: return Trigger.inject(typeToInject, withArguments: Trigger.resolve(arguments[0].self)!,
-                                      Trigger.resolve(arguments[1].self)!, Trigger.resolve(arguments[2].self)!)
-        default:
-            return nil
-    }
+    return definition.numberOfArguments > 0 && definition.autoWiringFactory != nil
   }
 }

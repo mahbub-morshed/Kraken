@@ -63,7 +63,10 @@ public final class Trigger {
     }
 
     let definitionKey = String(typeToInject)
-    definitionExists(forKey: definitionKey)
+
+    guard definitionExists(forKey: definitionKey) else {
+       fatalError("No object registered for type: \(definitionKey). Did you forget to call register:implementation:scope: for type \(definitionKey)")
+    }
 
     if let definition = resolvedInstances[definitionKey] {
       return definition
@@ -111,10 +114,12 @@ public final class Trigger {
     }
   }
 
-  static func definitionExists(forKey definitionKey: String) {
-    guard let _ = definitionMap[definitionKey] else {
-      fatalError("No object registered for type: \(definitionKey). Did you forget to call register:implementation:scope: for type \(definitionKey)")
+  static func definitionExists(forKey definitionKey: String) -> Bool {
+    if let _ = definitionMap[definitionKey] {
+        return true
     }
+
+    return false
   }
 
   private static func singletonInstance(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {

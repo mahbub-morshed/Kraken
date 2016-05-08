@@ -22,15 +22,9 @@ public final class FactoryDefinition<F>: DependencyDefinition {
 
   var factory: F
 
-  init(scope: DependencyScope, factory: F, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil, completionHandler: ((Injectable) -> ())? = nil) {
+  init(scope: DependencyScope, factory: F, numberOfArguments: Int = 0, completionHandler: ((Injectable) -> ())? = nil) {
     self.factory = factory
-    super.init(scope: scope, numberOfArguments: numberOfArguments, argumentTypes: argumentTypes, completionHandler: completionHandler)
-  }
-
-  public func supportsAutowiring() -> Bool {
-    let filteredArgumentTypesForAutowiring = argumentTypes?.filter({ $0 is Injectable })
-
-    return numberOfArguments > 0 && filteredArgumentTypesForAutowiring?.count > 0
+    super.init(scope: scope, numberOfArguments: numberOfArguments, completionHandler: completionHandler)
   }
 }
 
@@ -38,13 +32,12 @@ public class DependencyDefinition {
 
   var scope: DependencyScope
   var numberOfArguments: Int
-  var argumentTypes: [Any]?
   var completionHandler: ((Injectable) -> ())?
+  var autoWiringFactory: (() -> Injectable?)?
 
-  init(scope: DependencyScope, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil, completionHandler: ((Injectable) -> ())? = nil) {
+  init(scope: DependencyScope, numberOfArguments: Int = 0, completionHandler: ((Injectable) -> ())? = nil) {
     self.scope = scope
     self.numberOfArguments = numberOfArguments
-    self.argumentTypes = argumentTypes
     self.completionHandler = completionHandler
   }
 }

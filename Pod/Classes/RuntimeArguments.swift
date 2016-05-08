@@ -24,18 +24,45 @@ extension Trigger {
   }
 
   public static func register<Arg1>(interface: Any, scope: DependencyScope = .Prototype, factory: (Arg1) -> Injectable?) {
+    if definitionExists(forKey: String(Arg1.self)) {
+
+        registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 1) { () -> Injectable? in
+            factory(Trigger.inject(Arg1) as! Arg1)
+        }
+
+        return
+    }
+
     verifyScope(interface, scope: scope)
-    registerFactory(interface, scope: scope, factory: factory, numberOfArguments: 1, argumentTypes: [Arg1.self])
+    registerFactory(interface, scope: scope, factory: factory, numberOfArguments: 1)
   }
 
   public static func register<Arg1, Arg2>(interface: Any, scope: DependencyScope = .Prototype, factory: (Arg1, Arg2) -> Injectable?) {
+    if definitionExists(forKey: String(Arg1.self)) && definitionExists(forKey: String(Arg2.self)) {
+
+        registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 2) { () -> Injectable? in
+            factory(Trigger.inject(Arg1) as! Arg1, Trigger.inject(Arg2) as! Arg2)
+        }
+
+        return
+    }
+
     verifyScope(interface, scope: scope)
-    registerFactory(interface, scope: scope, factory: factory, numberOfArguments: 2, argumentTypes: [Arg1.self, Arg2.self])
+    registerFactory(interface, scope: scope, factory: factory, numberOfArguments: 2)
   }
 
   public static func register<Arg1, Arg2, Arg3>(interface: Any, scope: DependencyScope = .Prototype, factory: (Arg1, Arg2, Arg3) -> Injectable?) {
+    if definitionExists(forKey: String(Arg1.self)) && definitionExists(forKey: String(Arg2.self)) && definitionExists(forKey: String(Arg3.self)) {
+
+        registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 3) { () -> Injectable? in
+            factory(Trigger.inject(Arg1) as! Arg1, Trigger.inject(Arg2) as! Arg2, Trigger.inject(Arg3) as! Arg3)
+        }
+
+        return
+    }
+
     verifyScope(interface, scope: scope)
-    registerFactory(interface, scope: scope, factory: factory, numberOfArguments: 3, argumentTypes: [Arg1.self, Arg2.self, Arg3.self])
+    registerFactory(interface, scope: scope, factory: factory, numberOfArguments: 3)
   }
 
   private static func verifyScope(interface: Any, scope: DependencyScope) {
@@ -48,10 +75,19 @@ extension Trigger {
     }
   }
 
-  private static func registerFactory<F>(interface: Any, scope: DependencyScope, factory: F, numberOfArguments: Int = 0, argumentTypes: [Any]? = nil, completionHandler: ((Injectable) -> ())? = nil) {
+  private static func registerFactory<F>(interface: Any, scope: DependencyScope, factory: F, numberOfArguments: Int = 0, completionHandler: ((Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
 
-    definitionMap[definitionKey] = FactoryDefinition(scope: scope, factory: factory, numberOfArguments: numberOfArguments, argumentTypes: argumentTypes, completionHandler: completionHandler)
+    definitionMap[definitionKey] = FactoryDefinition(scope: scope, factory: factory, numberOfArguments: numberOfArguments, completionHandler: completionHandler)
+  }
+
+  private static func registerAutoWiringFactory(interface: Any, scope: DependencyScope, numberOfArguments: Int = 0, autoWiringFactory: () -> Injectable?) {
+    let definitionKey = String(interface)
+
+    let dependencydefinition = DependencyDefinition(scope: scope, numberOfArguments: 3)
+    dependencydefinition.autoWiringFactory = autoWiringFactory
+
+    definitionMap[definitionKey] = dependencydefinition
   }
 }
 
@@ -86,7 +122,10 @@ extension Trigger {
 
   private static func verifyAndReturnFactoryDefinition<F>(typeToInject: Any, withNumberOfRuntimeArguments argumentCount: Int, builder: F -> Injectable?) -> FactoryDefinition<F> {
     let definitionKey = String(typeToInject)
-    definitionExists(forKey: definitionKey)
+
+    guard definitionExists(forKey: definitionKey) else {
+        fatalError("No object registered for type: \(definitionKey). Did you forget to call register:implementation:scope: for type \(definitionKey)")
+    }
 
     let dependencyDefinition = definitionMap[definitionKey]
 
