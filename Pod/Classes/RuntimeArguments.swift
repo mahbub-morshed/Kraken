@@ -10,7 +10,7 @@
 /// MARK:- Custom Dependency Container (Dependency Factory registration with runtime arguments)
 
 
-extension Trigger {
+extension Kraken {
 
   public static func register(interface: Any, scope: DependencyScope = .Prototype, factory: () -> Injectable?, completionHandler: ((resolvedInstance: Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
@@ -27,7 +27,7 @@ extension Trigger {
     if definitionExists(forKey: String(Arg1.self)) {
 
         registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 1) { () -> Injectable? in
-            factory(Trigger.inject(Arg1) as! Arg1)
+            factory(Kraken.inject(Arg1) as! Arg1)
         }
 
         return
@@ -41,7 +41,7 @@ extension Trigger {
     if definitionExists(forKey: String(Arg1.self)) && definitionExists(forKey: String(Arg2.self)) {
 
         registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 2) { () -> Injectable? in
-            factory(Trigger.inject(Arg1) as! Arg1, Trigger.inject(Arg2) as! Arg2)
+            factory(Kraken.inject(Arg1) as! Arg1, Kraken.inject(Arg2) as! Arg2)
         }
 
         return
@@ -55,7 +55,7 @@ extension Trigger {
     if definitionExists(forKey: String(Arg1.self)) && definitionExists(forKey: String(Arg2.self)) && definitionExists(forKey: String(Arg3.self)) {
 
         registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 3) { () -> Injectable? in
-            factory(Trigger.inject(Arg1) as! Arg1, Trigger.inject(Arg2) as! Arg2, Trigger.inject(Arg3) as! Arg3)
+            factory(Kraken.inject(Arg1) as! Arg1, Kraken.inject(Arg2) as! Arg2, Kraken.inject(Arg3) as! Arg3)
         }
 
         return
@@ -95,7 +95,7 @@ extension Trigger {
 /// MARK:- Custom Dependency Container (Dependency injection implementation with runtime arguments)
 
 
-extension Trigger {
+extension Kraken {
 
   public static func inject<Arg1>(typeToInject: Any, withArguments arg1: Arg1) -> Injectable? {
     return resolveFactory(typeToInject, withNumberOfRuntimeArguments: 1) { (factory: (Arg1) -> Injectable?) in factory(arg1) }
@@ -141,7 +141,7 @@ extension Trigger {
   }
 
   private static func singletonInstance<F>(definitionKey: String, factoryDefinition: FactoryDefinition<F>, builder: F -> Injectable?) -> Injectable? {
-    synchronized(Trigger.self) {
+    synchronized(Kraken.self) {
       if singletons[definitionKey] == nil {
         singletons[definitionKey] = builder(factoryDefinition.factory)!
       }

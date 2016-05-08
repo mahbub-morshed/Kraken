@@ -9,9 +9,9 @@ import Kraken
 
 class ServiceAImpl: ServiceA {
   
-  let serviceB = Trigger.inject(ServiceB) as! ServiceBImpl
-  let serviceC = Trigger.inject(ServiceC) as! ServiceCImpl
-  let serviceAImplDataSource = Trigger.inject(GenericDataSource<ServiceAImpl>) as! ServiceAImplDataSource
+  let serviceB = Kraken.inject(ServiceB) as! ServiceBImpl
+  let serviceC = Kraken.inject(ServiceC) as! ServiceCImpl
+  let serviceAImplDataSource = Kraken.inject(GenericDataSource<ServiceAImpl>) as! ServiceAImplDataSource
   
   required init() {
   }

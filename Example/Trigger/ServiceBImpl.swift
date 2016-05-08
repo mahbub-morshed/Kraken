@@ -11,8 +11,8 @@ class ServiceBImpl: ServiceB {
   
   weak var serviceA: ServiceA?
 
-  let serviceC = Trigger.inject(ServiceC) as! ServiceCImpl
-  let serviceBImplDataSource = Trigger.inject(GenericDataSource<ServiceBImpl>) as! ServiceBImplDataSource
+  let serviceC = Kraken.inject(ServiceC) as! ServiceCImpl
+  let serviceBImplDataSource = Kraken.inject(GenericDataSource<ServiceBImpl>) as! ServiceBImplDataSource
   
   required init() {
   }

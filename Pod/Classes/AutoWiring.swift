@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Trigger {
+extension Kraken {
 
   public static func resolveByAutoWiring(typeToInject: Any) -> Injectable? {
     let definitionKey = String(typeToInject)

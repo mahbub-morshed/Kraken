@@ -18,7 +18,7 @@ public protocol Injectable: AnyObject {
 /// MARK:- Custom Dependency Container (Dependency registration and injection implementation)
 
 
-public final class Trigger {
+public final class Kraken {
   
   static var definitionMap = [String: DependencyDefinition]()
   static var singletons = [String: Injectable]()
@@ -123,7 +123,7 @@ public final class Trigger {
   }
 
   private static func singletonInstance(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
-    synchronized(Trigger.self) {
+    synchronized(Kraken.self) {
       if singletons[definitionKey] == nil {
         singletons[definitionKey] = implementationDefinition.implementationType!.init()
       }
@@ -137,7 +137,7 @@ public final class Trigger {
 /// MARK:- Custom Dependency Container (Dependency removal implementation)
 
 
-extension Trigger {
+extension Kraken {
   
   public static func remove(interface: Any) {
     let definitionKey = String(interface)
@@ -145,7 +145,7 @@ extension Trigger {
   }
   
   public static func remove(definitionKey key: String) {
-    synchronized(Trigger.self) {
+    synchronized(Kraken.self) {
       definitionMap[key] = nil
       
       if let _ = singletons[key] {
@@ -155,7 +155,7 @@ extension Trigger {
   }
   
   public static func reset() {
-    synchronized(Trigger.self) {
+    synchronized(Kraken.self) {
       definitionMap.removeAll()
       singletons.removeAll()
     }
@@ -166,7 +166,7 @@ extension Trigger {
 /// MARK:- Circular Dependency handling
 
 
-extension Trigger {
+extension Kraken {
   
   public static func injectWeak(typeToInject: Any) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject)!)

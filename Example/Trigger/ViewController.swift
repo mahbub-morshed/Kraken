@@ -17,8 +17,8 @@ class ViewController: UIViewController {
     let serviceBOne = ServiceBImpl()
     let serviceBTwo = ServiceBImpl()
   
-    let serviceD = Trigger.inject(ServiceD.self, withArguments: "localhost", 8080) as! ServiceDImpl
-    let serviceE = Trigger.inject(ServiceE) as! ServiceEImpl
+    let serviceD = Kraken.inject(ServiceD.self, withArguments: "localhost", 8080) as! ServiceDImpl
+    let serviceE = Kraken.inject(ServiceE) as! ServiceEImpl
   
     override func viewDidLoad() {
         super.viewDidLoad()
