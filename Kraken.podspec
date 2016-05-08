@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Kraken"
-  s.version          = "1.0.1"
+  s.version          = "1.1.1"
   s.summary          = "Simple Dependency Injection container for Swift. Use protocols to resolve dependencies with precise syntax!"
 
 # This description is used to generate tags and improve search results.
