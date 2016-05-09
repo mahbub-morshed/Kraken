@@ -34,7 +34,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - **Auto-wiring**. Kraken can infer your components' dependencies injected in constructor and automatically resolve them.
 - **Easy configuration**. No complex container hierarchy, no unneeded functionality;
 - **Thread safety**. Registering and resolving components is thread safe;
-- **Helpful error messages**. If something can not be resolved at runtime Dip throws an error that completely describes the issue;
+- **Helpful error messages**. If something can not be resolved at runtime Kraken throws an error that completely describes the issue;
 
 ## Basic usage
 
