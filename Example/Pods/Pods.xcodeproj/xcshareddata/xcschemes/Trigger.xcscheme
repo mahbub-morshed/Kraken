@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3CAA95483EF5C9FA8A319B7960D9B68E'
-               BlueprintName = 'Trigger'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Trigger.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3CAA95483EF5C9FA8A319B7960D9B68E"
+               BlueprintName = "Trigger"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "Trigger.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
