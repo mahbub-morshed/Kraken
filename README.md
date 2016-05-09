@@ -27,11 +27,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Features
 
-- **`Scopes`**. Kraken supports 3 different scopes (or life cycle strategies): _Prototype_, _Singleton_, _EagerSingleton_;
-- **`Named definitions`**. You can register an `implementation type`, an `implementation` or a `factory` for a protocol or type;
-- **`Runtime arguments`**. You can register factories that accept up to 3 runtime arguments (You can create an extension to increase number of runtime arguments);
-- **`Circular dependencies`**. Kraken can resolve circular dependencies;
-- **`Auto-wiring`**. Kraken can infer your components' dependencies injected in constructor and automatically resolve them.
+- **Scopes**. Kraken supports 3 different scopes (or life cycle strategies): _Prototype_, _Singleton_, _EagerSingleton_;
+- **Named definitions**. You can register an `implementation type`, an `implementation` or a `factory` for a protocol or type;
+- **Runtime arguments**. You can register factories that accept up to 3 runtime arguments (You can create an extension to increase number of runtime arguments);
+- **Circular dependencies**. Kraken can resolve circular dependencies;
+- **Auto-wiring**. Kraken can infer your components' dependencies injected in constructor and automatically resolve them.
 - **Easy configuration**. No complex container hierarchy, no unneeded functionality;
 - **Thread safety**. Registering and resolving components is thread safe;
 - **Helpful error messages**. If something can not be resolved at runtime Dip throws an error that completely describes the issue;
