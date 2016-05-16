@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Trigger
+//  Kraken
 //
 //  Created by Syed Sabir Salman-Al-Musawi on 03/29/2016.
 //  Copyright (c) 2016 Syed Sabir Salman-Al-Musawi. All rights reserved.

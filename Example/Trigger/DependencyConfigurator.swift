@@ -1,6 +1,6 @@
 //
 //  DependencyConfigurator.swift
-//  Trigger
+//  Kraken
 //
 //  Created by Syed Sabir Salman on 3/31/16.
 //  Copyright © 2016 CocoaPods. All rights reserved.

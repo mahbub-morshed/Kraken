@@ -22,7 +22,7 @@
 		BF5087102B4CED6E92DEA6DF7B1E9C9D /* Pods-Trigger_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CF92FFAD2FB8C38D2B644E3E289301C1 /* Pods-Trigger_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4BBB2DFB02E4FEAF1D8B9701E0B63E2 /* Pods-Trigger_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3776030DD3782C0179718C0E07E327ED /* Pods-Trigger_Tests-dummy.m */; };
 		E0C229FFC1C836C89A11F5E0A4FF7847 /* DependencyScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58C8AB53DF19F1367729810E3F3BAE9 /* DependencyScope.swift */; };
-		EB8BA47AFCAA63445D01343F2409EBA0 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463655EBCA65057BAE7A098B3E5365D6 /* Trigger.swift */; };
+		EB8BA47AFCAA63445D01343F2409EBA0 /* Kraken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463655EBCA65057BAE7A098B3E5365D6 /* Kraken.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +59,7 @@
 		3712643DFBBB670B077699C2D605DA03 /* Kraken-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kraken-prefix.pch"; sourceTree = "<group>"; };
 		3776030DD3782C0179718C0E07E327ED /* Pods-Trigger_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Trigger_Tests-dummy.m"; sourceTree = "<group>"; };
 		422AB2E924458D4C9E2068D2F8CC43F6 /* Pods_Trigger_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trigger_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		463655EBCA65057BAE7A098B3E5365D6 /* Trigger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
+		463655EBCA65057BAE7A098B3E5365D6 /* Kraken.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Kraken.swift; sourceTree = "<group>"; };
 		54861A180F15BBC265164E53ADAE96BF /* Trigger.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Trigger.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		61734E6F8B0838CADFF65CFE6A01EFF8 /* Pods-Trigger_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Trigger_Example-dummy.m"; sourceTree = "<group>"; };
 		7E5D5D1AC47FA5DCF5741F9E40D1708B /* Pods-Trigger_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Trigger_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 				CEE0ABAF4CCC4BA30020EE6961162479 /* DependencyDefinition.swift */,
 				D58C8AB53DF19F1367729810E3F3BAE9 /* DependencyScope.swift */,
 				B88C21376C235D0F501A79385058DC8E /* RuntimeArguments.swift */,
-				463655EBCA65057BAE7A098B3E5365D6 /* Trigger.swift */,
+				463655EBCA65057BAE7A098B3E5365D6 /* Kraken.swift */,
 				80DA1F09B875994896732864A90F9048 /* Utils.swift */,
 			);
 			path = Classes;
@@ -422,7 +422,7 @@
 				E0C229FFC1C836C89A11F5E0A4FF7847 /* DependencyScope.swift in Sources */,
 				8B99FC33073C44A3975B9E7B1B3F84CF /* Kraken-dummy.m in Sources */,
 				A8357C5E3966E233700EE50C75B4D31C /* RuntimeArguments.swift in Sources */,
-				EB8BA47AFCAA63445D01343F2409EBA0 /* Trigger.swift in Sources */,
+				EB8BA47AFCAA63445D01343F2409EBA0 /* Kraken.swift in Sources */,
 				52855EB6C5AD607B5A10BA99D366E0E2 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
