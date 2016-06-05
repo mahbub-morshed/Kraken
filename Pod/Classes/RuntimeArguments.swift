@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// MARK:- Custom Dependency Container (Dependency Factory registration with runtime arguments)
 
@@ -105,6 +107,7 @@ extension Kraken {
 
     definitionMap[definitionKey] = dependencydefinition
   }
+
 }
 
 
@@ -165,4 +168,5 @@ extension Kraken {
 
     return singletons[definitionKey]
   }
+
 }

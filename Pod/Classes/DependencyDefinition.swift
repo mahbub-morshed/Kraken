@@ -22,6 +22,12 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
+
+/// MARK:- ImplementationDefinition subclass for registering dummy implementations or implementation types
+
+
 public final class ImplementationDefinition: DependencyDefinition {
 
   var implementationType: Injectable.Type?
@@ -32,7 +38,12 @@ public final class ImplementationDefinition: DependencyDefinition {
     self.implementation = implementation
     super.init(scope: scope, completionHandler: completionHandler)
   }
+
 }
+
+
+/// MARK:- FactoryDefinition subclass for registering dependency factory
+
 
 public final class FactoryDefinition<F>: DependencyDefinition {
 
@@ -42,7 +53,12 @@ public final class FactoryDefinition<F>: DependencyDefinition {
     self.factory = factory
     super.init(scope: scope, numberOfArguments: numberOfArguments, completionHandler: completionHandler)
   }
+
 }
+
+
+/// MARK:- Base class for registering dependency information
+
 
 public class DependencyDefinition {
 
@@ -56,4 +72,5 @@ public class DependencyDefinition {
     self.numberOfArguments = numberOfArguments
     self.completionHandler = completionHandler
   }
+
 }

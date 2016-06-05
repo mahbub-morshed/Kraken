@@ -45,4 +45,5 @@ extension Kraken {
   private static func isAutoWiringSupported(forDefinition definition: DependencyDefinition) -> Bool {
     return definition.numberOfArguments > 0 && definition.autoWiringFactory != nil
   }
+
 }

@@ -22,12 +22,16 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// MARK:- Base of all injectable types
 
 
 public protocol Injectable: AnyObject {
+
   init()
+
 }
 
 
@@ -41,6 +45,7 @@ public final class Kraken {
   static var resolvedInstances = [String: Injectable]()
   
   init() {
+
   }
   
   public static func register(interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .Prototype, completionHandler: ((resolvedInstance: Injectable) -> ())? = nil) {
@@ -147,6 +152,7 @@ public final class Kraken {
 
     return singletons[definitionKey]
   }
+
 }
 
 
@@ -176,6 +182,7 @@ extension Kraken {
       singletons.removeAll()
     }
   }
+
 }
 
 
@@ -187,6 +194,7 @@ extension Kraken {
   public static func injectWeak(typeToInject: Any) -> WeakDependency {
     return WeakDependency(instance: inject(typeToInject)!)
   }
+
 }
 
 public final class WeakDependency {
@@ -200,4 +208,5 @@ public final class WeakDependency {
   init(instance: Injectable) {
     _value = instance
   }
+
 }

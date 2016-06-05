@@ -22,6 +22,12 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
+
+// MARK:- Scope of dependency definition
+
+
 public enum DependencyScope {
 
   case Singleton
