@@ -16,25 +16,26 @@ class DependencyConfigurator {
       (resolvedInstance: Injectable) -> () in
 
       let serviceB = resolvedInstance as! ServiceBImpl
-      serviceB.serviceA = Kraken.injectWeak(ServiceA).value as! ServiceAImpl
+      serviceB.serviceA = injectWeak(ServiceA).value as! ServiceAImpl
     }
 
     Kraken.register(ServiceC.self, implementationType: ServiceCImpl.self, scope: .Singleton) {
       (resolvedInstance: Injectable) -> () in
 
       let serviceC = resolvedInstance as! ServiceCImpl
-      serviceC.serviceA = Kraken.injectWeak(ServiceA).value as! ServiceAImpl
+      serviceC.serviceA = injectWeak(ServiceA).value as! ServiceAImpl
     }
 
-    Kraken.register(ServiceD.self) {
-      ServiceDImpl(host: $0, port: $1, serviceB: Kraken.inject(ServiceB) as! ServiceBImpl) as ServiceD
+    try! Kraken.register(ServiceD.self) {
+      ServiceDImpl(host: $0, port: $1, serviceB: inject(ServiceB)) as ServiceD
     }
 
     Kraken.register(GenericDataSource<ServiceAImpl>.self, implementationType: ServiceAImplDataSource.self, scope: .EagerSingleton)
     Kraken.register(GenericDataSource<ServiceBImpl>.self, implementationType: ServiceBImplDataSource.self, scope: .Singleton)
 
-    Kraken.register(ServiceE.self) {
+    try! Kraken.register(ServiceE.self) {
         ServiceEImpl(serviceA: $0, serviceB: $1, serviceC: $2)
     }
   }
+
 }

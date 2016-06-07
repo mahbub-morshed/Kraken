@@ -8,5 +8,9 @@
 import Kraken
 
 protocol ServiceC: Injectable {
+
+  weak var serviceA: ServiceA? { get set }
+
   func myCompanyC() -> String
+
 }

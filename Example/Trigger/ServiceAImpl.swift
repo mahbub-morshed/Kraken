@@ -9,9 +9,9 @@ import Kraken
 
 class ServiceAImpl: ServiceA {
   
-  let serviceB = Kraken.inject(ServiceB) as! ServiceBImpl
-  let serviceC = Kraken.inject(ServiceC) as! ServiceCImpl
-  let serviceAImplDataSource = Kraken.inject(GenericDataSource<ServiceAImpl>) as! ServiceAImplDataSource
+  var serviceB: ServiceB = inject(ServiceB)
+  var serviceC: ServiceC = inject(ServiceC)
+  var serviceAImplDataSource: GenericDataSource<ServiceAImpl> = inject(GenericDataSource<ServiceAImpl>)
   
   required init() {
   }
@@ -19,4 +19,5 @@ class ServiceAImpl: ServiceA {
   func myCompanyA() -> String {
     return "therapA"
   }
+
 }

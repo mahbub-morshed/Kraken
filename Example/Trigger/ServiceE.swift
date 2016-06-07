@@ -8,5 +8,7 @@
 import Kraken
 
 protocol ServiceE: Injectable {
+
   func myDependencyAddresses() -> String
+
 }

@@ -11,8 +11,8 @@ class ServiceBImpl: ServiceB {
   
   weak var serviceA: ServiceA?
 
-  let serviceC = Kraken.inject(ServiceC) as! ServiceCImpl
-  let serviceBImplDataSource = Kraken.inject(GenericDataSource<ServiceBImpl>) as! ServiceBImplDataSource
+  var serviceC: ServiceC = inject(ServiceC)
+  var serviceBImplDataSource: GenericDataSource<ServiceBImpl> = inject(GenericDataSource<ServiceBImpl>)
   
   required init() {
   }
@@ -20,4 +20,5 @@ class ServiceBImpl: ServiceB {
   func myCompanyB() -> String {
     return "therapB"
   }
+
 }

@@ -21,4 +21,5 @@ class GenericDataSource<T> {
   func setItems(items: [T]) {
     itemList = items
   }
+
 }

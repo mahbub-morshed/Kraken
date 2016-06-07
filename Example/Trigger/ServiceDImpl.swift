@@ -25,4 +25,5 @@ class ServiceDImpl: ServiceD {
   func myCompanyAddress() -> String {
     return "My company address is \(host):\(port)"
   }
+
 }

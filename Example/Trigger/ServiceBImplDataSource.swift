@@ -11,4 +11,5 @@ class ServiceBImplDataSource: GenericDataSource<ServiceBImpl>, Injectable {
   
   required override init() {
   }
+
 }

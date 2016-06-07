@@ -25,4 +25,5 @@ class ServiceEImpl: ServiceE {
   func myDependencyAddresses() -> String {
     return "injected memory addresses are \(unsafeAddressOf(serviceA))  \(unsafeAddressOf(serviceB))  \(unsafeAddressOf(serviceC)))"
   }
+
 }

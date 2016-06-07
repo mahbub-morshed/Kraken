@@ -8,5 +8,9 @@
 import Kraken
 
 protocol ServiceD: Injectable {
+
+  var serviceB: ServiceB! { get set }
+
   func myCompanyAddress() -> String
+
 }
