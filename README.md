@@ -15,7 +15,7 @@ _Photo courtesy of [www.krakenstudios.blogspot.com](http://krakenstudios.blogspo
 It's aimed to be as simple as possible yet provide rich functionality usual for DI containers on other platforms. It's inspired by [Dip](https://github.com/AliSoftware/Dip) and some other DI containers.
 
 * You start by creating a `Dependency Configurator` for bootstrapping and **registering your dependencies, by associating a _protocol_ or _type_ to either an `implementation type`, an `implementation` or a `factory`**. It is preferrable to call your `Dependency Configurator` from `main.swift`.
-* Then you can call `Kraken.inject(typeToInject)` to **resolve an instance of _protocol_ or _type_** based on the bootstrapping in your `Dependency Configurator`.
+* Then you can call `inject(typeToInject)` to **resolve an instance of _protocol_ or _type_** based on the bootstrapping in your `Dependency Configurator`.
 
 ## Documentation
 
@@ -54,16 +54,17 @@ class DependencyConfigurator {
     Kraken.register(ServiceC.self, implementation: dummyImplementation, scope: .Singleton)
 
     // Register a protocol or type having weak property to allow Kraken to handle circular dependencies
+    // An example of such protocol (ServiceB) is given below
     Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self, scope: .Singleton) {
       (resolvedInstance: Injectable) -> () in
 
       let serviceB = resolvedInstance as! ServiceBImpl
-      serviceB.serviceA = Kraken.injectWeak(ServiceA).value as! ServiceAImpl
+      serviceB.serviceA = injectWeak(ServiceA).value as! ServiceAImpl
     }
 
     // Register a protocol or type having runtime arguments to be injected in constructor
     Kraken.register(ServiceD.self) {
-      ServiceDImpl(host: $0, port: $1, serviceB: Kraken.inject(ServiceB) as! ServiceBImpl) as ServiceD
+      ServiceDImpl(host: $0, port: $1, serviceB: inject(ServiceB)) as ServiceD
     }
 
     // Register generic protocols or types
@@ -78,33 +79,52 @@ class DependencyConfigurator {
 
 ```
 
+```swift
+import Kraken
+
+protocol ServiceB: Injectable {
+
+  weak var serviceA: ServiceA? { get set }
+
+  var serviceC: ServiceC { get set }
+
+  var serviceBImplDataSource: GenericDataSource<ServiceBImpl> { get set }
+
+  func myCompanyB() -> String
+
+}
+
+```
+
 It is worth mentioning that the protocols or types which are registered must conform to the `Injectable` protocol in order to be resolved by the container as shown in the example below:
 
 ```swift
 import Kraken
 
 protocol ServiceA: Injectable {
+
   func myCompanyA() -> String
+
 }
 
 ```
 
-After bootstrapping dependencies, its injection is as simple as invoking `Kraken.inject()` which can be of different types as shown below:
+After bootstrapping dependencies, its injection is as simple as invoking `inject()` which can be of different types as shown below:
 
 ```swift
 import Kraken
 
 // Inject dependency whose implementation was registered
-let serviceC: ServiceC = Kraken.inject(ServiceC)
+let serviceC: ServiceC = inject(ServiceC)
 
 // Inject dependency whose implementation type was registered
-let serviceA: ServiceA = Kraken.inject(ServiceA)
+let serviceA: ServiceA = inject(ServiceA)
 
 // Inject dependency providing runtime arguments
-let serviceD: ServiceD = Kraken.inject(ServiceD.self, withArguments: "localhost", 8080)
+let serviceD: ServiceD = inject(ServiceD.self, withArguments: "localhost", 8080)
 
 // Inject dependency which is resolved by container through AutoWiring
-let serviceE: ServiceE = Kraken.inject(ServiceE)
+let serviceE: ServiceE = inject(ServiceE)
 
 ```
 
@@ -129,7 +149,7 @@ pod 'Kraken', '1.2.0'
 
 Syed Sabir Salman-Al-Musawi, sabirvirtuoso@gmail.com
 
-I'd also like to thank [**Sharafat Ibn Mollah Mosharraf**](https://www.facebook.com/sharafat.8271) for his big support during the development phase.
+I'd also like to thank [**Sharafat Ibn Mollah Mosharraf**](sharafat_8271@yahoo.co.uk) for his big support during the development phase.
 
 **Kraken** is available under the **MIT license**. See the `LICENSE` file for more info.
 
