@@ -112,12 +112,18 @@ let serviceE: ServiceE = Kraken.inject(ServiceE)
 
 Kraken is built with Swift 2.2.
 
+#### CocoaPods
+
 Kraken is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Kraken', '1.1.2'
+pod 'Kraken', '1.2.0'
 ```
+
+#### Manually
+1. Download and drop ```/Kraken``` folder in your project.
+2. Congratulations!
 
 ## Author
 
