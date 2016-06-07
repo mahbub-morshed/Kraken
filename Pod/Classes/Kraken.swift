@@ -66,13 +66,13 @@ public final class Kraken {
     singletons[definitionKey] = implementation
   }
 
-  public static func inject(typeToInject: Any) -> Injectable? {
-    return resolve(typeToInject)
+  public static func inject(typeToInject: Any) throws -> Injectable? {
+    return try resolve(typeToInject)
   }
 
   private static var depth: Int = 0
 
-  public static func resolve(typeToInject: Any) -> Injectable? {
+  public static func resolve(typeToInject: Any) throws -> Injectable? {
     depth = depth + 1
 
     defer {
@@ -86,7 +86,7 @@ public final class Kraken {
     let definitionKey = String(typeToInject)
 
     guard definitionExists(forKey: definitionKey) else {
-       fatalError("No object registered for type: \(definitionKey). Did you forget to call register:implementation:scope: for type \(definitionKey)")
+       throw KrakenError.DefinitionNotFound(key: definitionKey)
     }
 
     if let definition = resolvedInstances[definitionKey] {
@@ -108,7 +108,7 @@ public final class Kraken {
     }
 
     if dependencyDefinition.numberOfArguments == 0 {
-      resolvedInstance = resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+      resolvedInstance = try resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
       resolvedInstances[definitionKey] = resolvedInstance
 
       defer {
@@ -118,7 +118,7 @@ public final class Kraken {
       return resolvedInstance
     }
 
-    return resolveByAutoWiring(typeToInject)
+    return try resolveByAutoWiring(typeToInject)
   }
 
   private static func invokeCompletionHandler(dependencyDefinition: DependencyDefinition, resolvedInstance: Injectable?) {
@@ -190,9 +190,11 @@ extension Kraken {
 
 
 extension Kraken {
-  
-  public static func injectWeak(typeToInject: Any) -> WeakDependency {
-    return WeakDependency(instance: inject(typeToInject)!)
+
+  public static func injectWeak(typeToInject: Any) throws -> WeakDependency {
+    let resolvedInstance = try Kraken.inject(typeToInject)
+
+    return WeakDependency(instance: resolvedInstance!)
   }
 
 }
@@ -209,4 +211,16 @@ public final class WeakDependency {
     _value = instance
   }
 
+}
+
+
+/// MARK:- Global functions for injecting generic types without runtime arguments
+
+
+public func inject<T where T: Any>(typeToInject: T.Type) -> T {
+  return try! Kraken.inject(typeToInject) as! T
+}
+
+public func injectWeak(typeToInject: Any) -> WeakDependency {
+  return try! Kraken.injectWeak(typeToInject)
 }

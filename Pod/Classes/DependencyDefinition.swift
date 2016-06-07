@@ -65,7 +65,7 @@ public class DependencyDefinition {
   var scope: DependencyScope
   var numberOfArguments: Int
   var completionHandler: ((Injectable) -> ())?
-  var autoWiringFactory: (() -> Injectable?)?
+  var autoWiringFactory: (() throws -> Injectable?)?
 
   init(scope: DependencyScope, numberOfArguments: Int = 0, completionHandler: ((Injectable) -> ())? = nil) {
     self.scope = scope

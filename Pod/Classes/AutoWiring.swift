@@ -30,8 +30,9 @@ import Foundation
 
 extension Kraken {
 
-  public static func resolveByAutoWiring(typeToInject: Any) -> Injectable? {
+  public static func resolveByAutoWiring(typeToInject: Any) throws -> Injectable? {
     let definitionKey = String(typeToInject)
+    let resolvedInstance: Injectable?
 
     let dependencyDefinition: DependencyDefinition! = definitionMap[definitionKey]
 
@@ -39,7 +40,14 @@ extension Kraken {
       return nil
     }
 
-    return dependencyDefinition.autoWiringFactory!()
+    do {
+      resolvedInstance = try dependencyDefinition.autoWiringFactory!()
+    }
+    catch {
+      throw KrakenError.AutoWiringFailed(key: definitionKey, underlyingError: error)
+    }
+
+    return resolvedInstance
   }
 
   private static func isAutoWiringSupported(forDefinition definition: DependencyDefinition) -> Bool {
