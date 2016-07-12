@@ -27,7 +27,7 @@ import Kraken
 
 class ViewController: UIViewController {
   
-    let serviceAOne = ServiceAImpl()
+    let serviceAOne: ServiceA = inject(ServiceA)
     let serviceATwo = ServiceAImpl()
   
     let serviceBOne = ServiceBImpl()
@@ -51,6 +51,9 @@ class ViewController: UIViewController {
     }
   
     private func showReferenceAddress() {
+        print(unsafeAddressOf(serviceAOne))
+        print(unsafeAddressOf(serviceAOne.serviceC))
+        print(unsafeAddressOf(serviceAOne.serviceC.serviceA!))
         print(unsafeAddressOf(serviceAOne.serviceB))
         print(unsafeAddressOf(serviceAOne.serviceC))
         print(unsafeAddressOf(serviceAOne.serviceB.serviceC))

@@ -22,6 +22,8 @@
 		1B90AB511CAD31230070CC23 /* DependencyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */; };
 		1BD81EC41CD9B96400A17026 /* ServiceE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD81EC31CD9B96400A17026 /* ServiceE.swift */; };
 		1BD81EC61CD9B97500A17026 /* ServiceEImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD81EC51CD9B97500A17026 /* ServiceEImpl.swift */; };
+		1BF52F801D09247E00633CAB /* KrakenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF52F7F1D09247E00633CAB /* KrakenTests.swift */; };
+		1BF52F821D093E5300633CAB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF52F811D093E5300633CAB /* Utils.swift */; };
 		59113B1B1BEC6B120F44ED9E /* Pods_Trigger_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BB8048C5F5BD855A7C2B60 /* Pods_Trigger_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -59,6 +61,8 @@
 		1B90AB501CAD31230070CC23 /* DependencyConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyConfigurator.swift; sourceTree = "<group>"; };
 		1BD81EC31CD9B96400A17026 /* ServiceE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceE.swift; sourceTree = "<group>"; };
 		1BD81EC51CD9B97500A17026 /* ServiceEImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceEImpl.swift; sourceTree = "<group>"; };
+		1BF52F7F1D09247E00633CAB /* KrakenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KrakenTests.swift; sourceTree = "<group>"; };
+		1BF52F811D093E5300633CAB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		28D1875E5C7F5182139EBB61 /* Kraken.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Kraken.podspec; path = ../Kraken.podspec; sourceTree = "<group>"; };
 		581BF93833A2B6948DD61C88 /* Pods_Trigger_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trigger_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Trigger_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trigger_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				1BF52F7F1D09247E00633CAB /* KrakenTests.swift */,
+				1BF52F811D093E5300633CAB /* Utils.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -267,7 +273,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -441,6 +447,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF52F801D09247E00633CAB /* KrakenTests.swift in Sources */,
+				1BF52F821D093E5300633CAB /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +595,7 @@
 			baseConfigurationReference = FE94F4DCEA9A7F73E0D9C8D7 /* Pods-Trigger_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -599,6 +608,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Trigger_Example.app/Trigger_Example";
 			};
 			name = Debug;
@@ -608,6 +618,7 @@
 			baseConfigurationReference = 052C0FF9BC3D84FA2E37FF8A /* Pods-Trigger_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
