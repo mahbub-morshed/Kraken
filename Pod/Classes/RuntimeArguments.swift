@@ -117,20 +117,20 @@ extension Kraken {
 extension Kraken {
 
   public static func inject<Arg1>(typeToInject: Any, withArguments arg1: Arg1) throws -> Injectable? {
-    return try resolveFactory(typeToInject, withNumberOfRuntimeArguments: 1) { (factory: (Arg1) -> Injectable?) in factory(arg1) }
+    return try resolveFactory(typeToInject) { (factory: (Arg1) -> Injectable?) in factory(arg1) }
   }
 
   public static func inject<Arg1, Arg2>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2) throws -> Injectable? {
-    return try resolveFactory(typeToInject, withNumberOfRuntimeArguments: 2) { (factory: (Arg1, Arg2) -> Injectable?) in factory(arg1, arg2) }
+    return try resolveFactory(typeToInject) { (factory: (Arg1, Arg2) -> Injectable?) in factory(arg1, arg2) }
   }
 
   public static func inject<Arg1, Arg2, Arg3>(typeToInject: Any, withArguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) throws -> Injectable? {
-    return try resolveFactory(typeToInject, withNumberOfRuntimeArguments: 3) { (factory: (Arg1, Arg2, Arg3) -> Injectable?) in factory(arg1, arg2, arg3) }
+    return try resolveFactory(typeToInject) { (factory: (Arg1, Arg2, Arg3) -> Injectable?) in factory(arg1, arg2, arg3) }
   }
 
-  public static func resolveFactory<F>(typeToInject: Any, withNumberOfRuntimeArguments: Int = 0, builder: F -> Injectable?) throws -> Injectable? {
+  public static func resolveFactory<F>(typeToInject: Any, builder: F -> Injectable?) throws -> Injectable? {
     let definitionKey = String(typeToInject)
-    let factoryDefinition = try verifyAndReturnFactoryDefinition(typeToInject, withNumberOfRuntimeArguments: withNumberOfRuntimeArguments, builder: builder)
+    let factoryDefinition = try verifyAndReturnFactoryDefinition(typeToInject, builder: builder)
 
     switch factoryDefinition.scope {
         case .Singleton : return singletonInstance(definitionKey, factoryDefinition: factoryDefinition, builder: builder)
@@ -139,7 +139,7 @@ extension Kraken {
     }
   }
 
-  private static func verifyAndReturnFactoryDefinition<F>(typeToInject: Any, withNumberOfRuntimeArguments argumentCount: Int, builder: F -> Injectable?) throws -> FactoryDefinition<F> {
+  private static func verifyAndReturnFactoryDefinition<F>(typeToInject: Any, builder: F -> Injectable?) throws -> FactoryDefinition<F> {
     let definitionKey = String(typeToInject)
 
     guard definitionExists(forKey: definitionKey) else {
@@ -149,10 +149,10 @@ extension Kraken {
     let dependencyDefinition = definitionMap[definitionKey]
 
     guard let factoryDefinition = dependencyDefinition as? FactoryDefinition<F> else {
-      throw KrakenError.FactoryNotFound(key: definitionKey)
-    }
+      if dependencyDefinition!.numberOfArguments == 0 {
+        throw KrakenError.FactoryNotFound(key: definitionKey)
+      }
 
-    guard factoryDefinition.numberOfArguments == argumentCount else {
       throw KrakenError.ArgumentCountNotMatched(key: definitionKey)
     }
 

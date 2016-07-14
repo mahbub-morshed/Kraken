@@ -150,7 +150,7 @@ class RuntimeArgumentsTests: XCTestCase {
 
     //when
     AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1, arg2)) { error in
-      guard case let KrakenError.FactoryNotFound(key) = error else { return false }
+      guard case let KrakenError.ArgumentCountNotMatched(key) = error else { return false }
 
       //then
       let expectedKey = String(Service.self)
