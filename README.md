@@ -1,9 +1,11 @@
 # Kraken
 
 [![Build Status](https://travis-ci.org/sabirvirtuoso/Kraken.svg?branch=master)](https://travis-ci.org/sabirvirtuoso/Kraken)
+[![Code Climate](https://codeclimate.com/github/sabirvirtuoso/Kraken/badges/gpa.svg)](https://codeclimate.com/github/sabirvirtuoso/Kraken)
 [![Version](https://img.shields.io/cocoapods/v/Kraken.svg?style=flat)](http://cocoapods.org/pods/Kraken)
 [![License](https://img.shields.io/cocoapods/l/Kraken.svg?style=flat)](http://cocoapods.org/pods/Kraken)
 [![Platform](https://img.shields.io/cocoapods/p/Kraken.svg?style=flat)](http://cocoapods.org/pods/Kraken)
+[![Swift Version](https://img.shields.io/badge/Swift-2.2-F16D39.svg?style=flat)](https://developer.apple.com/swift)
 
 ![Kraken GIF](Kraken.gif)
 _Photo courtesy of [www.krakenstudios.blogspot.com](http://krakenstudios.blogspot.com/)_
