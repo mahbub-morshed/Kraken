@@ -1,0 +1,31 @@
+engines:
+  tailor:
+    enabled: true
+    checks:
+      forced-type-cast:
+        enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+       - swift
+fixme:
+    enabled: true
+ratings:
+  paths: 
+  - Pod/Classes/**
+  - Example/Tests/**
+  - Example/Trigger/**
+  - “**.swift”
+exclude_paths: 
+- Example/Trigger/Base.lproj/**
+- Example/Trigger/Image.xcassets/*
+- Example/Trigger/Info.plist
+- Example/Pods/**
+- Example/Trigger.xcworkspace/**
+- Example/Trigger.xcodeproj/**
+- Example/Podfile
+- Example/Podfile.lock
+- LICENSE
+- README.md
+- Kraken.podspec
