@@ -25,11 +25,15 @@
 import XCTest
 @testable import Kraken
 
-private protocol Service: Injectable { }
+private protocol Service: Injectable {}
 
-private class ServiceImp1: Service { required init() { } }
+private class ServiceImp1: Service {
+  required init() {}
+}
 
-private class ServiceImp2: Service { required init() { } }
+private class ServiceImp2: Service {
+  required init() {}
+}
 
 private protocol Server: Injectable {
   weak var client: Client? { get set }
@@ -48,74 +52,74 @@ class KrakenTests: XCTestCase {
   }
 
   func testThatItResolvesDependencyRegisteredWithImplementation() {
-    //given
+    // given
     Kraken.register(Service.self, implementation: ServiceImp2())
 
-    //when
+    // when
     let serviceInstance: Service = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(serviceInstance is ServiceImp2)
 
-    //and when
+    // and when
     let optService: Service? = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(optService is ServiceImp2)
 
-    //and when
+    // and when
     let impService: Service! = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(impService is ServiceImp2)
   }
 
   func testThatItResolvesDependencyRegisteredWithImplementationType() {
-    //given
+    // given
     Kraken.register(Service.self, implementationType: ServiceImp1.self)
 
-    //when
+    // when
     let serviceInstance: Service = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(serviceInstance is ServiceImp1)
 
-    //and when
+    // and when
     let optService: Service? = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(optService is ServiceImp1)
 
-    //and when
+    // and when
     let impService: Service! = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(impService is ServiceImp1)
   }
 
   func testThatNewRegistrationOverridesPreviousRegistration() {
-    //given
+    // given
     Kraken.register(Service.self, implementation: ServiceImp1())
     let service1: Service = inject(Service)
 
-    //when
+    // when
     Kraken.register(Service.self, implementation: ServiceImp2())
     let service2: Service = inject(Service)
 
-    //then
+    // then
     XCTAssertTrue(service1 is ServiceImp1)
     XCTAssertTrue(service2 is ServiceImp2)
   }
 
   func testThatItThrowsErrorIfCanNotFindDefinitionForType() {
-    //given
+    // given
     Kraken.register(ServiceImp1.self, implementation: ServiceImp1())
 
-    //when
+    // when
     AssertThrows(expression: try Kraken.inject(Service)) { error in
       guard case let KrakenError.DefinitionNotFound(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
@@ -124,14 +128,14 @@ class KrakenTests: XCTestCase {
   }
   
   func testThatItThrowsErrorIfCanNotFindDefinitionForFactoryWithOneArgument() {
-    //given
+    // given
     Kraken.register(ServiceImp1.self, implementation: ServiceImp1())
 
-    //when
+    // when
     AssertThrows(expression: try Kraken.inject(Service.self, withArguments: "some argument")) { error in
       guard case let KrakenError.DefinitionNotFound(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
@@ -140,14 +144,14 @@ class KrakenTests: XCTestCase {
   }
 
   func testThatItThrowsErrorIfCanNotFindDefinitionForFactoryWithTwoArguments() {
-    //given
+    // given
     Kraken.register(ServiceImp1.self, implementation: ServiceImp1())
 
-    //when
+    // when
     AssertThrows(expression: try Kraken.inject(Service.self, withArguments: "some argument one", "some argument two")) { error in
       guard case let KrakenError.DefinitionNotFound(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
@@ -156,14 +160,14 @@ class KrakenTests: XCTestCase {
   }
   
   func testThatItThrowsErrorIfCanNotFindDefinitionForFactoryWithThreeArguments() {
-    //given
+    // given
     Kraken.register(ServiceImp1.self, implementation: ServiceImp1())
 
-    //when
+    // when
     AssertThrows(expression: try Kraken.inject(Service.self, withArguments: "some argument one", "some argument two", "some argument three")) { error in
       guard case let KrakenError.DefinitionNotFound(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
@@ -183,7 +187,7 @@ class KrakenTests: XCTestCase {
   }
 
   func testThatItResolvesCircularDependencies() {
-    //given
+    // given
     class ResolvableServer: Server {
       weak var client: Client?
       weak var secondClient: Client?

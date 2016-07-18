@@ -39,15 +39,15 @@ public protocol Injectable: AnyObject {
 
 
 public final class Kraken {
-  
+
   static var definitionMap = [String: DependencyDefinition]()
   static var singletons = [String: Injectable]()
   static var resolvedInstances = [String: Injectable]()
-  
+
   init() {
 
   }
-  
+
   public static func register(interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .Prototype, completionHandler: ((resolvedInstance: Injectable) -> ())? = nil) {
     let definitionKey = String(interface)
     definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType, completionHandler: completionHandler)
@@ -58,7 +58,7 @@ public final class Kraken {
         case .Prototype: break
     }
   }
-  
+
   public static func register(interface: Any, implementation: Injectable) {
     let definitionKey = String(interface)
     definitionMap[definitionKey] = ImplementationDefinition(scope: .EagerSingleton, implementation: implementation)
@@ -129,9 +129,9 @@ public final class Kraken {
 
   private static func resolveImplementation(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
     switch implementationDefinition.scope {
-        case .EagerSingleton : return singletons[definitionKey]
-        case .Singleton : return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
-        case .Prototype : return implementationDefinition.implementationType!.init()
+        case .EagerSingleton: return singletons[definitionKey]
+        case .Singleton: return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
+        case .Prototype: return implementationDefinition.implementationType!.init()
     }
   }
 
@@ -160,12 +160,12 @@ public final class Kraken {
 
 
 extension Kraken {
-  
+
   public static func remove(interface: Any) {
     let definitionKey = String(interface)
     remove(definitionKey: definitionKey)
   }
-  
+
   public static func remove(definitionKey key: String) {
     synchronized(Kraken.self) {
       definitionMap[key] = nil
@@ -175,7 +175,7 @@ extension Kraken {
       }
     }
   }
-  
+
   public static func reset() {
     synchronized(Kraken.self) {
       definitionMap.removeAll()
@@ -200,13 +200,13 @@ extension Kraken {
 }
 
 public final class WeakDependency {
-  
+
   private weak var _value: Injectable!
-  
+
   public var value: Injectable {
     return _value
   }
-  
+
   init(instance: Injectable) {
     _value = instance
   }

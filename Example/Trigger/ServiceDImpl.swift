@@ -25,14 +25,14 @@
 import Kraken
 
 class ServiceDImpl: ServiceD {
-  
+
   var host: String!
   var port: Int!
   var serviceB: ServiceB!
-  
+
   required init() {
   }
-  
+
   init(host: String, port: Int, serviceB: ServiceB) {
     self.host = host
     self.port = port

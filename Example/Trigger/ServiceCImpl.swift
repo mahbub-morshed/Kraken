@@ -25,12 +25,12 @@
 import Kraken
 
 class ServiceCImpl: ServiceC {
-  
+
   weak var serviceA: ServiceA?
 
   required init() {
   }
-  
+
   func myCompanyC() -> String {
     return "therapC"
   }

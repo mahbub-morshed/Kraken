@@ -29,6 +29,6 @@ func synchronized<T>(lock: AnyObject?, @noescape closure: () throws -> T) rethro
   defer {
     objc_sync_exit(lock)
   }
-  
+
   return try closure()
 }

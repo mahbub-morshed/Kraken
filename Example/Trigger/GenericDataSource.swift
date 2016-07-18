@@ -25,15 +25,15 @@
 import Kraken
 
 class GenericDataSource<T> {
-  
+
   var items: [T] {
     get {
       return itemList
     }
   }
-  
+
   private var itemList = [T]()
-  
+
   func setItems(items: [T]) {
     itemList = items
   }

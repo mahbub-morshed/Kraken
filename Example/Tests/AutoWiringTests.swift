@@ -25,15 +25,19 @@
 import XCTest
 @testable import Kraken
 
-private protocol ServiceA: Injectable { }
-private protocol ServiceB: Injectable { }
+private protocol ServiceA: Injectable {}
+private protocol ServiceB: Injectable {}
 private protocol AutoWiredService: Injectable {
   var serviceA: ServiceA! { get set }
   var serviceB: ServiceB! { get set }
 }
 
-private class ServiceAImpl: ServiceA { required init() {} }
-private class ServiceBImpl: ServiceB { required init() {} }
+private class ServiceAImpl: ServiceA {
+  required init() {}
+}
+private class ServiceBImpl: ServiceB {
+  required init() {}
+}
 
 private class AutoWiredServiceImpl: AutoWiredService {
 
@@ -115,11 +119,11 @@ class AutoWiringTests: XCTestCase {
 
     Kraken.remove(ServiceA.self)
 
-    //when
+    // when
     AssertThrows(expression: try Kraken.resolveByAutoWiring(AutoWiredService.self)) { error in
       guard case let KrakenError.AutoWiringFailed(key, _) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(AutoWiredService.self)
       XCTAssertEqual(key, expectedKey)
 

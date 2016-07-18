@@ -29,9 +29,15 @@ private protocol Service: Injectable {}
 private protocol Service2: Injectable {}
 private protocol Service3: Injectable {}
 
-private class ServiceImpl1: Service { required init() {} }
-private class ServiceImpl2: Service2 { required init() {} }
-private class ServiceImpl3: Service3 { required init() {} }
+private class ServiceImpl1: Service {
+  required init() {}
+}
+private class ServiceImpl2: Service2 {
+  required init() {}
+}
+private class ServiceImpl3: Service3 {
+  required init() {}
+}
 
 class DependencyScopeTests: XCTestCase {
 
@@ -171,11 +177,11 @@ class DependencyScopeTests: XCTestCase {
     // given
     Kraken.register(Service.self, implementationType: ServiceImpl1.self)
 
-    //when
+    // when
     let service1: Service = inject(Service)
     let service2: Service = inject(Service)
 
-    //then
+    // then
     XCTAssertFalse(service1 === service2)
   }
 
@@ -183,11 +189,11 @@ class DependencyScopeTests: XCTestCase {
     // given
     Kraken.register(Service.self, factory: { ServiceImpl1() as Service })
 
-    //when
+    // when
     let service1: Service = inject(Service)
     let service2: Service = inject(Service)
 
-    //then
+    // then
     XCTAssertFalse(service1 === service2)
   }
 
@@ -201,11 +207,11 @@ class DependencyScopeTests: XCTestCase {
       return ServiceImpl1() as Service
     }
 
-    //when
+    // when
     let service1: Service = inject(Service.self, withArguments: arg1)
     let service2: Service = inject(Service.self, withArguments: arg1)
 
-    //then
+    // then
     XCTAssertFalse(service1 === service2)
   }
 
@@ -220,11 +226,11 @@ class DependencyScopeTests: XCTestCase {
       return ServiceImpl1() as Service
     }
 
-    //when
+    // when
     let service1: Service = inject(Service.self, withArguments: arg1, arg2)
     let service2: Service = inject(Service.self, withArguments: arg1, arg2)
 
-    //then
+    // then
     XCTAssertFalse(service1 === service2)
   }
 
@@ -240,15 +246,16 @@ class DependencyScopeTests: XCTestCase {
       return ServiceImpl1() as Service
     }
 
-    //when
+    // when
     let service1: Service = inject(Service.self, withArguments: arg1, arg2, arg3)
     let service2: Service = inject(Service.self, withArguments: arg1, arg2, arg3)
 
-    //then
+    // then
     XCTAssertFalse(service1 === service2)
   }
 
   func testThatItReusesInstanceForSingletonScopeOfImplementationType() {
+
     func test(scope: DependencyScope) {
       // given
       Kraken.register(Service.self, implementationType: ServiceImpl1.self, scope: scope)
@@ -266,6 +273,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatItReusesInstanceForSingletonScopeOfFactoryWithNoArgument() {
+
     func test(scope: DependencyScope) {
       // given
       Kraken.register(Service.self, scope: .Singleton, factory: { ServiceImpl1() as Service })
@@ -283,6 +291,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatItReusesInstanceForSingletonScopeOfFactoryWithOneArgument() {
+
     func test(scope: DependencyScope) {
       // given
       let arg1 = 1
@@ -305,6 +314,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatItReusesInstanceForSingletonScopeOfFactoryWithTwoArguments() {
+
     func test(scope: DependencyScope) {
       // given
       let arg1 = 1, arg2 = 2
@@ -316,7 +326,7 @@ class DependencyScopeTests: XCTestCase {
         return ServiceImpl1() as Service
       }
 
-      //when
+      // when
       let service1: Service = inject(Service.self, withArguments: arg1, arg2)
       let service2: Service = inject(Service.self, withArguments: arg1, arg2)
 
@@ -328,6 +338,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatItReusesInstanceForSingletonScopeOfFactoryWithThreeArguments() {
+
     func test(scope: DependencyScope) {
       // given
       let arg1 = 1, arg2 = 2, arg3 = 3
@@ -340,7 +351,7 @@ class DependencyScopeTests: XCTestCase {
         return ServiceImpl1() as Service
       }
 
-      //when
+      // when
       let service1: Service = inject(Service.self, withArguments: arg1, arg2, arg3)
       let service2: Service = inject(Service.self, withArguments: arg1, arg2, arg3)
 
@@ -352,6 +363,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatSingletonIsReleasedWhenDefinitionIsRemoved() {
+
     func test(scope: DependencyScope) {
       // given
       Kraken.register(Service.self, implementationType: ServiceImpl1.self, scope: scope)
@@ -371,6 +383,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatSingletonIsReleasedWhenContainerIsReset() {
+
     func test(scope: DependencyScope) {
       // given
       Kraken.register(Service.self, implementationType: ServiceImpl1.self, scope: scope)
@@ -390,7 +403,7 @@ class DependencyScopeTests: XCTestCase {
   }
 
   func testThatOnlyEagerSingletonIsCreatedWhenContainerIsBootsrapped() {
-    //given
+    // given
 
     // when
     Kraken.register(Service.self, implementationType: ServiceImpl1.self, scope: .EagerSingleton)
@@ -414,7 +427,7 @@ class DependencyScopeTests: XCTestCase {
     }) { error in
       guard case let KrakenError.EagerSingletonNotAllowed(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
@@ -432,7 +445,7 @@ class DependencyScopeTests: XCTestCase {
     }) { error in
       guard case let KrakenError.EagerSingletonNotAllowed(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
@@ -450,7 +463,7 @@ class DependencyScopeTests: XCTestCase {
     }) { error in
       guard case let KrakenError.EagerSingletonNotAllowed(key) = error else { return false }
 
-      //then
+      // then
       let expectedKey = String(Service.self)
       XCTAssertEqual(key, expectedKey)
 
