@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B8816F21D3629C700D7F764 /* RuntimeArgumentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8816F11D3629C700D7F764 /* RuntimeArgumentsTests.swift */; };
 		1B8816F61D376A9100D7F764 /* AutoWiringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8816F51D376A9100D7F764 /* AutoWiringTests.swift */; };
+		1B8816F81D3B919D00D7F764 /* DependencyScopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8816F71D3B919D00D7F764 /* DependencyScopeTests.swift */; };
 		1B90AB301CABC62A0070CC23 /* ServiceA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB2F1CABC62A0070CC23 /* ServiceA.swift */; };
 		1B90AB321CABC6450070CC23 /* ServiceAImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB311CABC6450070CC23 /* ServiceAImpl.swift */; };
 		1B90AB341CABC6590070CC23 /* ServiceB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B90AB331CABC6590070CC23 /* ServiceB.swift */; };
@@ -50,6 +51,7 @@
 		14D9C925C068510F0A473807 /* Pods-Trigger_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trigger_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Trigger_Example/Pods-Trigger_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		1B8816F11D3629C700D7F764 /* RuntimeArgumentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeArgumentsTests.swift; sourceTree = "<group>"; };
 		1B8816F51D376A9100D7F764 /* AutoWiringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoWiringTests.swift; sourceTree = "<group>"; };
+		1B8816F71D3B919D00D7F764 /* DependencyScopeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyScopeTests.swift; sourceTree = "<group>"; };
 		1B90AB2F1CABC62A0070CC23 /* ServiceA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceA.swift; sourceTree = "<group>"; };
 		1B90AB311CABC6450070CC23 /* ServiceAImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAImpl.swift; sourceTree = "<group>"; };
 		1B90AB331CABC6590070CC23 /* ServiceB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceB.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				1BF52F7F1D09247E00633CAB /* KrakenTests.swift */,
 				1B8816F11D3629C700D7F764 /* RuntimeArgumentsTests.swift */,
 				1B8816F51D376A9100D7F764 /* AutoWiringTests.swift */,
+				1B8816F71D3B919D00D7F764 /* DependencyScopeTests.swift */,
 				1BF52F811D093E5300633CAB /* Utils.swift */,
 			);
 			path = Tests;
@@ -454,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B8816F61D376A9100D7F764 /* AutoWiringTests.swift in Sources */,
+				1B8816F81D3B919D00D7F764 /* DependencyScopeTests.swift in Sources */,
 				1BF52F801D09247E00633CAB /* KrakenTests.swift in Sources */,
 				1BF52F821D093E5300633CAB /* Utils.swift in Sources */,
 				1B8816F21D3629C700D7F764 /* RuntimeArgumentsTests.swift in Sources */,
