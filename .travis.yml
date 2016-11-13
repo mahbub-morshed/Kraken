@@ -3,13 +3,14 @@
 # * https://github.com/supermarin/xcpretty#usage
 
 language: objective-c
-osx_image: xcode7.3
+os: osx
+osx_image: xcode8
 
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-# - gem install cocoapods # Since Travis is not always on latest version
-# - pod install --project-directory=Example
+-before_install:
+ - |
+    gem install xcpretty slather -N
+ 
 script:
-- set -o pipefail && xcodebuild test -workspace Example/Trigger.xcworkspace -scheme Trigger-Example -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' ONLY_ACTIVE_ARCH=NO | xcpretty -c
-- pod lib lint --quick
+- |
+    set -o pipefail
+    xcodebuild clean test -workspace Example/Trigger.xcworkspace -scheme Trigger-Example -destination "platform=iOS Simulator,name=iPhone 6 Plus,OS=latest" ONLY_ACTIVE_ARCH=NO | xcpretty -c
