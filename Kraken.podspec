@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Kraken"
-  s.version          = "1.4.0"
+  s.version          = "1.4.1"
   s.summary          = "Simple Dependency Injection container for Swift. Use protocols to resolve dependencies with precise syntax!"
 
 # This description is used to generate tags and improve search results.
@@ -34,9 +34,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'Trigger' => ['Pod/Assets/*.png']
-  }
+  #s.resource_bundles = {
+  #  'Kraken' => ['Pod/Assets/*.png']
+  #}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
