@@ -26,9 +26,9 @@ import Kraken
 
 class ServiceAImpl: ServiceA {
 
-  var serviceB: ServiceB = inject(ServiceB)
-  var serviceC: ServiceC = inject(ServiceC)
-  var serviceAImplDataSource: GenericDataSource<ServiceAImpl> = inject(GenericDataSource<ServiceAImpl>)
+  var serviceB: ServiceB = inject(ServiceB.self)
+  var serviceC: ServiceC = inject(ServiceC.self)
+  var serviceAImplDataSource: GenericDataSource<ServiceAImpl> = inject(GenericDataSource<ServiceAImpl>.self)
 
   required init() {
   }

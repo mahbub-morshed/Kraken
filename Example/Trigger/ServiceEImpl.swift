@@ -40,7 +40,7 @@ class ServiceEImpl: ServiceE {
   }
 
   func myDependencyAddresses() -> String {
-    return "injected memory addresses are \(unsafeAddressOf(serviceA))  \(unsafeAddressOf(serviceB))  \(unsafeAddressOf(serviceC)))"
+    return "injected memory addresses are \(Unmanaged<AnyObject>.passUnretained(serviceA as AnyObject).toOpaque())  \(Unmanaged<AnyObject>.passUnretained(serviceB as AnyObject).toOpaque())  \(Unmanaged<AnyObject>.passUnretained(serviceC as AnyObject).toOpaque()))"
   }
 
 }

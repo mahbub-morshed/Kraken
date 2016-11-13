@@ -48,31 +48,31 @@ public final class Kraken {
 
   }
 
-  public static func register(interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .Prototype, completionHandler: ((resolvedInstance: Injectable) -> ())? = nil) {
-    let definitionKey = String(interface)
+  public static func register(_ interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .prototype, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
+    let definitionKey = String(describing: interface)
     definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType, completionHandler: completionHandler)
     
     switch scope {
-        case .EagerSingleton: singletons[definitionKey] = implementationType.init()
-        case .Singleton: break
-        case .Prototype: break
+        case .eagerSingleton: singletons[definitionKey] = implementationType.init()
+        case .singleton: break
+        case .prototype: break
     }
   }
 
-  public static func register(interface: Any, implementation: Injectable) {
-    let definitionKey = String(interface)
-    definitionMap[definitionKey] = ImplementationDefinition(scope: .EagerSingleton, implementation: implementation)
+  public static func register(_ interface: Any, implementation: Injectable) {
+    let definitionKey = String(describing: interface)
+    definitionMap[definitionKey] = ImplementationDefinition(scope: .eagerSingleton, implementation: implementation)
 
     singletons[definitionKey] = implementation
   }
 
-  public static func inject(typeToInject: Any) throws -> Injectable? {
+  public static func inject(_ typeToInject: Any) throws -> Injectable? {
     return try resolve(typeToInject)
   }
 
-  private static var depth: Int = 0
+  fileprivate static var depth: Int = 0
 
-  public static func resolve(typeToInject: Any) throws -> Injectable? {
+  public static func resolve(_ typeToInject: Any) throws -> Injectable? {
     depth = depth + 1
 
     defer {
@@ -83,10 +83,10 @@ public final class Kraken {
         }
     }
 
-    let definitionKey = String(typeToInject)
+    let definitionKey = String(describing: typeToInject)
 
     guard definitionExists(forKey: definitionKey) else {
-       throw KrakenError.DefinitionNotFound(key: definitionKey)
+       throw KrakenError.definitionNotFound(key: definitionKey)
     }
 
     if let definition = resolvedInstances[definitionKey] {
@@ -121,17 +121,17 @@ public final class Kraken {
     return try resolveByAutoWiring(typeToInject)
   }
 
-  private static func invokeCompletionHandler(dependencyDefinition: DependencyDefinition, resolvedInstance: Injectable?) {
+  fileprivate static func invokeCompletionHandler(_ dependencyDefinition: DependencyDefinition, resolvedInstance: Injectable?) {
     if dependencyDefinition.completionHandler != nil && resolvedInstance != nil {
       dependencyDefinition.completionHandler!(resolvedInstance!)
     }
   }
 
-  private static func resolveImplementation(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
+  fileprivate static func resolveImplementation(_ definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
     switch implementationDefinition.scope {
-        case .EagerSingleton: return singletons[definitionKey]
-        case .Singleton: return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
-        case .Prototype: return implementationDefinition.implementationType!.init()
+        case .eagerSingleton: return singletons[definitionKey]
+        case .singleton: return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
+        case .prototype: return implementationDefinition.implementationType!.init()
     }
   }
 
@@ -143,7 +143,7 @@ public final class Kraken {
     return false
   }
 
-  private static func singletonInstance(definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
+  fileprivate static func singletonInstance(_ definitionKey: String, implementationDefinition: ImplementationDefinition) -> Injectable? {
     synchronized(Kraken.self) {
       if singletons[definitionKey] == nil {
         singletons[definitionKey] = implementationDefinition.implementationType!.init()
@@ -161,8 +161,8 @@ public final class Kraken {
 
 extension Kraken {
 
-  public static func remove(interface: Any) {
-    let definitionKey = String(interface)
+  public static func remove(_ interface: Any) {
+    let definitionKey = String(describing: interface)
     remove(definitionKey: definitionKey)
   }
 
@@ -191,7 +191,7 @@ extension Kraken {
 
 extension Kraken {
 
-  public static func injectWeak(typeToInject: Any) throws -> WeakDependency {
+  public static func injectWeak(_ typeToInject: Any) throws -> WeakDependency {
     let resolvedInstance = try Kraken.inject(typeToInject)
 
     return WeakDependency(instance: resolvedInstance!)
@@ -201,7 +201,7 @@ extension Kraken {
 
 public final class WeakDependency {
 
-  private weak var _value: Injectable!
+  fileprivate weak var _value: Injectable!
 
   public var value: Injectable {
     return _value
@@ -217,10 +217,10 @@ public final class WeakDependency {
 /// MARK:- Global functions for injecting generic types without runtime arguments
 
 
-public func inject<T where T: Any>(typeToInject: T.Type) -> T {
+public func inject<T>(_ typeToInject: T.Type) -> T where T: Any {
   return try! Kraken.inject(typeToInject) as! T
 }
 
-public func injectWeak(typeToInject: Any) -> WeakDependency {
+public func injectWeak(_ typeToInject: Any) -> WeakDependency {
   return try! Kraken.injectWeak(typeToInject)
 }

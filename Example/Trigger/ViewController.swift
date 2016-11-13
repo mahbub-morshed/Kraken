@@ -27,14 +27,14 @@ import Kraken
 
 class ViewController: UIViewController {
 
-    let serviceAOne: ServiceA = inject(ServiceA)
+    let serviceAOne: ServiceA = inject(ServiceA.self)
     let serviceATwo = ServiceAImpl()
 
     let serviceBOne = ServiceBImpl()
     let serviceBTwo = ServiceBImpl()
 
     let serviceD: ServiceD = inject(ServiceD.self, withArguments: "localhost", 8080)
-    let serviceE: ServiceE = inject(ServiceE)
+    let serviceE: ServiceE = inject(ServiceE.self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,31 +44,31 @@ class ViewController: UIViewController {
         showReferenceAddress()
     }
 
-    private func generateDataSourceItems() {
+    fileprivate func generateDataSourceItems() {
         serviceAOne.serviceAImplDataSource.setItems([ServiceAImpl(), ServiceAImpl(), ServiceAImpl()])
 
         serviceBOne.serviceBImplDataSource.setItems([ServiceBImpl(), ServiceBImpl(), ServiceBImpl(), ServiceBImpl()])
     }
 
-    private func showReferenceAddress() {
-        print(unsafeAddressOf(serviceAOne))
-        print(unsafeAddressOf(serviceAOne.serviceC))
-        print(unsafeAddressOf(serviceAOne.serviceC.serviceA!))
-        print(unsafeAddressOf(serviceAOne.serviceB))
-        print(unsafeAddressOf(serviceAOne.serviceC))
-        print(unsafeAddressOf(serviceAOne.serviceB.serviceC))
-        print(unsafeAddressOf(serviceBOne.serviceC))
+    fileprivate func showReferenceAddress() {
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceC as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceC.serviceA! as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceB as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceC as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceB.serviceC as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceBOne.serviceC as AnyObject).toOpaque())
 
-        print(unsafeAddressOf(serviceD.serviceB))
-        print(unsafeAddressOf(serviceD.serviceB.serviceC))
+        print(Unmanaged<AnyObject>.passUnretained(serviceD.serviceB as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceD.serviceB.serviceC as AnyObject).toOpaque())
         print(serviceD.myCompanyAddress())
 
-        print(unsafeAddressOf(serviceAOne.serviceB.serviceA!))
-        print(unsafeAddressOf(serviceAOne.serviceC.serviceA!))
-        print(unsafeAddressOf(serviceAOne.serviceAImplDataSource))
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceB.serviceA! as AnyObject).toOpaque())
+        print(Unmanaged<AnyObject>.passUnretained(serviceAOne.serviceC.serviceA! as AnyObject).toOpaque())
+        print(Unmanaged.passUnretained(serviceAOne.serviceAImplDataSource).toOpaque())
 
-        print(unsafeAddressOf(serviceBOne.serviceBImplDataSource))
-        print(unsafeAddressOf(serviceBTwo.serviceBImplDataSource))
+        print(Unmanaged.passUnretained(serviceBOne.serviceBImplDataSource).toOpaque())
+        print(Unmanaged.passUnretained(serviceBTwo.serviceBImplDataSource).toOpaque())
 
         print(serviceE.myDependencyAddresses())
     }

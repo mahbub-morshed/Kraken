@@ -24,7 +24,7 @@
 
 import Foundation
 
-func synchronized<T>(lock: AnyObject?, @noescape closure: () throws -> T) rethrows -> T {
+func synchronized<T>(_ lock: AnyObject?, closure: () throws -> T) rethrows -> T {
   objc_sync_enter(lock)
   defer {
     objc_sync_exit(lock)

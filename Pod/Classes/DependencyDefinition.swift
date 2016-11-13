@@ -60,7 +60,7 @@ public final class FactoryDefinition<F>: DependencyDefinition {
 /// MARK:- Base class for registering dependency information
 
 
-public class DependencyDefinition {
+open class DependencyDefinition {
 
   var scope: DependencyScope
   var numberOfArguments: Int

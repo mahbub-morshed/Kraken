@@ -64,7 +64,7 @@ class RuntimeArgumentsTests: XCTestCase {
     Kraken.register(Service.self, factory: { ServiceImp1() as Service })
 
     // when
-    let service: Service = inject(Service)
+    let service: Service = inject(Service.self)
 
     // then
     XCTAssertTrue(service is ServiceImp1)
@@ -132,10 +132,10 @@ class RuntimeArgumentsTests: XCTestCase {
 
     // when
     AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1)) { error in
-      guard case let KrakenError.FactoryNotFound(key) = error else { return false }
+      guard case let KrakenError.factoryNotFound(key) = error else { return false }
 
       // then
-      let expectedKey = String(Service.self)
+      let expectedKey = String(describing: Service.self)
       XCTAssertEqual(key, expectedKey)
 
       return true
@@ -150,10 +150,10 @@ class RuntimeArgumentsTests: XCTestCase {
 
     // when
     AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1, arg2)) { error in
-      guard case let KrakenError.ArgumentCountNotMatched(key) = error else { return false }
+      guard case let KrakenError.argumentCountNotMatched(key) = error else { return false }
 
       // then
-      let expectedKey = String(Service.self)
+      let expectedKey = String(describing: Service.self)
       XCTAssertEqual(key, expectedKey)
 
       return true

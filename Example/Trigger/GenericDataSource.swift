@@ -32,9 +32,9 @@ class GenericDataSource<T> {
     }
   }
 
-  private var itemList = [T]()
+  fileprivate var itemList = [T]()
 
-  func setItems(items: [T]) {
+  func setItems(_ items: [T]) {
     itemList = items
   }
 

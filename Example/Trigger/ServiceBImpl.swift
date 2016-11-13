@@ -28,8 +28,8 @@ class ServiceBImpl: ServiceB {
 
   weak var serviceA: ServiceA?
 
-  var serviceC: ServiceC = inject(ServiceC)
-  var serviceBImplDataSource: GenericDataSource<ServiceBImpl> = inject(GenericDataSource<ServiceBImpl>)
+  var serviceC: ServiceC = inject(ServiceC.self)
+  var serviceBImplDataSource: GenericDataSource<ServiceBImpl> = inject(GenericDataSource<ServiceBImpl>.self)
 
   required init() {
   }

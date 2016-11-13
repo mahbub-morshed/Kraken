@@ -27,27 +27,27 @@ import Kraken
 class DependencyConfigurator {
 
   static func bootstrapDependencies() {
-    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self, scope: .Singleton)
-    Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self, scope: .Singleton) {
+    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self, scope: .singleton)
+    Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self, scope: .singleton) {
       (resolvedInstance: Injectable) -> () in
 
       let serviceB = resolvedInstance as! ServiceBImpl
-      serviceB.serviceA = injectWeak(ServiceA).value as! ServiceAImpl
+      serviceB.serviceA = injectWeak(ServiceA.self).value as! ServiceAImpl
     }
 
-    Kraken.register(ServiceC.self, implementationType: ServiceCImpl.self, scope: .Singleton) {
+    Kraken.register(ServiceC.self, implementationType: ServiceCImpl.self, scope: .singleton) {
       (resolvedInstance: Injectable) -> () in
 
       let serviceC = resolvedInstance as! ServiceCImpl
-      serviceC.serviceA = injectWeak(ServiceA).value as! ServiceAImpl
+      serviceC.serviceA = injectWeak(ServiceA.self).value as! ServiceAImpl
     }
 
     try! Kraken.register(ServiceD.self) {
-      ServiceDImpl(host: $0, port: $1, serviceB: inject(ServiceB)) as ServiceD
+      ServiceDImpl(host: $0, port: $1, serviceB: inject(ServiceB.self)) as ServiceD
     }
 
-    Kraken.register(GenericDataSource<ServiceAImpl>.self, implementationType: ServiceAImplDataSource.self, scope: .EagerSingleton)
-    Kraken.register(GenericDataSource<ServiceBImpl>.self, implementationType: ServiceBImplDataSource.self, scope: .Singleton)
+    Kraken.register(GenericDataSource<ServiceAImpl>.self, implementationType: ServiceAImplDataSource.self, scope: .eagerSingleton)
+    Kraken.register(GenericDataSource<ServiceBImpl>.self, implementationType: ServiceBImplDataSource.self, scope: .singleton)
 
     try! Kraken.register(ServiceE.self) {
         ServiceEImpl(serviceA: $0, serviceB: $1, serviceC: $2)

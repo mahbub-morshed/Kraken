@@ -70,7 +70,7 @@ class AutoWiringTests: XCTestCase {
     }
 
     // when
-    let service: AutoWiredService = inject(AutoWiredService)
+    let service: AutoWiredService = inject(AutoWiredService.self)
 
     // then
     XCTAssert(service is AutoWiredServiceImpl)
@@ -121,10 +121,10 @@ class AutoWiringTests: XCTestCase {
 
     // when
     AssertThrows(expression: try Kraken.resolveByAutoWiring(AutoWiredService.self)) { error in
-      guard case let KrakenError.AutoWiringFailed(key, _) = error else { return false }
+      guard case let KrakenError.autoWiringFailed(key, _) = error else { return false }
 
       // then
-      let expectedKey = String(AutoWiredService.self)
+      let expectedKey = String(describing: AutoWiredService.self)
       XCTAssertEqual(key, expectedKey)
 
       return true
