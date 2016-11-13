@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Kraken"
-  s.version          = "1.3.0"
+  s.version          = "1.4.0"
   s.summary          = "Simple Dependency Injection container for Swift. Use protocols to resolve dependencies with precise syntax!"
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/sabirvirtuoso/Kraken.git", :tag => s.version.to_s }
   s.social_media_url = 'https://www.facebook.com/syed.musawi'
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '10.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'

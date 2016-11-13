@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Kraken.svg?style=flat)](http://cocoapods.org/pods/Kraken)
 [![License](https://img.shields.io/cocoapods/l/Kraken.svg?style=flat)](http://cocoapods.org/pods/Kraken)
 [![Platform](https://img.shields.io/cocoapods/p/Kraken.svg?style=flat)](http://cocoapods.org/pods/Kraken)
-[![Swift Version](https://img.shields.io/badge/Swift-2.2-F16D39.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift Version](https://img.shields.io/badge/Swift-3.0-F16D39.svg?style=flat)](https://developer.apple.com/swift)
 
 ![Kraken GIF](Kraken.gif)
 _Photo courtesy of [www.krakenstudios.blogspot.com](http://krakenstudios.blogspot.com/)_
@@ -132,7 +132,7 @@ let serviceE: ServiceE = inject(ServiceE)
 
 ## Installation
 
-Kraken is built with Swift 2.2.
+Kraken is built with Swift 3.0.
 
 #### CocoaPods
 
@@ -140,7 +140,7 @@ Kraken is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Kraken', '1.3.0'
+pod 'Kraken', '1.4.0'
 ```
 
 #### Manually
