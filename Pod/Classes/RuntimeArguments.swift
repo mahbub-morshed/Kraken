@@ -45,7 +45,7 @@ extension Kraken {
     if definitionExists(forKey: String(describing: Arg1.self)) {
 
         registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 1) { () throws -> Injectable? in
-            try factory(Kraken.inject(Arg1) as! Arg1)
+            try factory(Kraken.inject(Arg1.self) as! Arg1)
         }
 
         return
@@ -59,7 +59,7 @@ extension Kraken {
     if definitionExists(forKey: String(describing: Arg1.self)) && definitionExists(forKey: String(describing: Arg2.self)) {
 
         registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 2) { () throws -> Injectable? in
-            try factory(Kraken.inject(Arg1) as! Arg1, Kraken.inject(Arg2) as! Arg2)
+            try factory(Kraken.inject(Arg1.self) as! Arg1, Kraken.inject(Arg2.self) as! Arg2)
         }
 
         return
@@ -73,7 +73,7 @@ extension Kraken {
     if definitionExists(forKey: String(describing: Arg1.self)) && definitionExists(forKey: String(describing: Arg2.self)) && definitionExists(forKey: String(describing: Arg3.self)) {
 
         registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 3) { () throws -> Injectable? in
-            try factory(Kraken.inject(Arg1) as! Arg1, Kraken.inject(Arg2) as! Arg2, Kraken.inject(Arg3) as! Arg3)
+            try factory(Kraken.inject(Arg1.self) as! Arg1, Kraken.inject(Arg2.self) as! Arg2, Kraken.inject(Arg3.self) as! Arg3)
         }
 
         return
