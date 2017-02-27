@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0CAB6098FB71616F6C8270EC2AC6A468 /* AutoWiring.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A18B72862684303593C5A020CCD164 /* AutoWiring.swift */; };
 		1B14EA6D1D052373001231DB /* KrakenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14EA6C1D052373001231DB /* KrakenError.swift */; };
+		1B31EF241E63FD4C0031C543 /* DependencyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B31EF231E63FD4C0031C543 /* DependencyTag.swift */; };
 		2E9EA7A760DF22AB554D1FFEF8C05A54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		52855EB6C5AD607B5A10BA99D366E0E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DA1F09B875994896732864A90F9048 /* Utils.swift */; };
 		604C5613F982B586BE075A021E3F957C /* Trigger.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54861A180F15BBC265164E53ADAE96BF /* Trigger.bundle */; };
@@ -55,6 +56,7 @@
 		13ACBA2450355B4A71CB376CDE0C08CE /* Pods-Trigger_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Trigger_Example.release.xcconfig"; sourceTree = "<group>"; };
 		187B75131794C7C5DBD4C1F726E9C593 /* Kraken-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kraken-umbrella.h"; sourceTree = "<group>"; };
 		1B14EA6C1D052373001231DB /* KrakenError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KrakenError.swift; sourceTree = "<group>"; };
+		1B31EF231E63FD4C0031C543 /* DependencyTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyTag.swift; sourceTree = "<group>"; };
 		1BB9A0781BA6DF2C9E3F9320D9585E2E /* Kraken-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Kraken-dummy.m"; sourceTree = "<group>"; };
 		200867784429468CE5C30849DC8F1ECD /* Pods-Trigger_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Trigger_Tests-resources.sh"; sourceTree = "<group>"; };
 		367312F86EBFD3CECE664C1B4D6EAF22 /* Pods-Trigger_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Trigger_Example-frameworks.sh"; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				463655EBCA65057BAE7A098B3E5365D6 /* Kraken.swift */,
 				80DA1F09B875994896732864A90F9048 /* Utils.swift */,
 				1B14EA6C1D052373001231DB /* KrakenError.swift */,
+				1B31EF231E63FD4C0031C543 /* DependencyTag.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B31EF241E63FD4C0031C543 /* DependencyTag.swift in Sources */,
 				0CAB6098FB71616F6C8270EC2AC6A468 /* AutoWiring.swift in Sources */,
 				8B70903846E54C58B67D0F58C1E9F47B /* DependencyDefinition.swift in Sources */,
 				1B14EA6D1D052373001231DB /* KrakenError.swift in Sources */,
