@@ -30,21 +30,21 @@ import Foundation
 
 public enum DependencyScope {
 
-  /**
-   Resolved instance will be retained by the container and always reused.
-   */
-  case singleton
+    /**
+     Resolved instance will be retained by the container and always reused.
+     */
+    case singleton
 
-  /**
-   The same scope as `Singleton`, but instance will be created when container is bootstrapped.
-   */
- case eagerSingleton
+    /**
+     The same scope as `Singleton`, but instance will be created when container is bootstrapped.
+     */
+    case eagerSingleton
 
-  /**
-   A new instance will be created every time it's resolved.
-   This is a default strategy. Use this strategy when you don't want instances to be shared
-   between different consumers (i.e. if it is not thread safe).
-   */
-  case prototype
+    /**
+     A new instance will be created every time it's resolved.
+     This is a default strategy. Use this strategy when you don't want instances to be shared
+     between different consumers (i.e. if it is not thread safe).
+     */
+    case prototype
 
 }

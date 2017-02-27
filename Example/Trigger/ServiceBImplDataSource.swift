@@ -1,4 +1,4 @@
-//
+s//
 //  Kraken
 //
 //  Copyright (c) 2016 Syed Sabir Salman-Al-Musawi <sabirvirtuoso@gmail.com>
@@ -26,7 +26,7 @@ import Kraken
 
 class ServiceBImplDataSource: GenericDataSource<ServiceBImpl>, Injectable {
 
-  required override init() {
-  }
+    required override init() {
+    }
 
 }

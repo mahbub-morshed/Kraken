@@ -26,16 +26,16 @@ import Kraken
 
 class GenericDataSource<T> {
 
-  var items: [T] {
-    get {
-      return itemList
+    var items: [T] {
+        get {
+            return itemList
+        }
     }
-  }
 
-  fileprivate var itemList = [T]()
+    fileprivate var itemList = [T]()
 
-  func setItems(_ items: [T]) {
-    itemList = items
-  }
+    func setItems(_ items: [T]) {
+        itemList = items
+    }
 
 }

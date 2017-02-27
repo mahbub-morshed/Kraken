@@ -26,8 +26,8 @@ import Kraken
 
 protocol ServiceC: Injectable {
 
-  weak var serviceA: ServiceA? { get set }
+    weak var serviceA: ServiceA? { get set }
 
-  func myCompanyC() -> String
+    func myCompanyC() -> String
 
 }

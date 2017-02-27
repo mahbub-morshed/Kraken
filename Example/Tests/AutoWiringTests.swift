@@ -1,4 +1,4 @@
-//
+s//
 //  Kraken
 //
 //  Copyright (c) 2016 Syed Sabir Salman-Al-Musawi <sabirvirtuoso@gmail.com>
@@ -25,110 +25,119 @@
 import XCTest
 @testable import Kraken
 
-private protocol ServiceA: Injectable {}
-private protocol ServiceB: Injectable {}
+private protocol ServiceA: Injectable {
+}
+
+private protocol ServiceB: Injectable {
+}
+
 private protocol AutoWiredService: Injectable {
-  var serviceA: ServiceA! { get set }
-  var serviceB: ServiceB! { get set }
+    var serviceA: ServiceA! { get set }
+    var serviceB: ServiceB! { get set }
 }
 
 private class ServiceAImpl: ServiceA {
-  required init() {}
+    required init() {
+    }
 }
+
 private class ServiceBImpl: ServiceB {
-  required init() {}
+    required init() {
+    }
 }
 
 private class AutoWiredServiceImpl: AutoWiredService {
 
-  var serviceA: ServiceA!
-  var serviceB: ServiceB!
+    var serviceA: ServiceA!
+    var serviceB: ServiceB!
 
-  required init() {
-  }
+    required init() {
+    }
 
-  init(serviceA: ServiceA, serviceB: ServiceB) {
-    self.serviceA = serviceA
-    self.serviceB = serviceB
-  }
+    init(serviceA: ServiceA, serviceB: ServiceB) {
+        self.serviceA = serviceA
+        self.serviceB = serviceB
+    }
 
 }
 
 class AutoWiringTests: XCTestCase {
 
-  override func setUp() {
-    Kraken.reset()
-  }
-
-  func testThatItCanResolveWithAutoWiring() {
-    // given
-    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self)
-    Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self)
-
-    try! Kraken.register(AutoWiredService.self) {
-      AutoWiredServiceImpl(serviceA: $0, serviceB: $1) as AutoWiredService
+    override func setUp() {
+        Kraken.reset()
     }
 
-    // when
-    let service: AutoWiredService = inject(AutoWiredService.self)
+    func testThatItCanResolveWithAutoWiring() {
+        // given
+        Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self)
+        Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self)
 
-    // then
-    XCTAssert(service is AutoWiredServiceImpl)
+        try! Kraken.register(AutoWiredService.self) {
+            AutoWiredServiceImpl(serviceA: $0, serviceB: $1) as AutoWiredService
+        }
 
-    let serviceA = service.serviceA
-    XCTAssertTrue(serviceA is ServiceAImpl)
+        // when
+        let service: AutoWiredService = inject(AutoWiredService.self)
 
-    let serviceB = service.serviceB
-    XCTAssertTrue(serviceB is ServiceBImpl)
-  }
+        // then
+        XCTAssert(service is AutoWiredServiceImpl)
 
-  func testThatAutoWiringIsNotSupportedIfNoFactoryWithArgumentIsRegistered() {
-    // given
-    Kraken.register(ServiceA.self, factory: { ServiceAImpl() as ServiceA })
+        let serviceA = service.serviceA
+        XCTAssertTrue(serviceA is ServiceAImpl)
 
-    // when
-    let serviceA = try! Kraken.resolveByAutoWiring(ServiceA.self)
-
-    // then
-    XCTAssertNil(serviceA)
-  }
-
-  func testThatAutoWiringIsNotSupportedIfAutoWiringFactoryIsNilDueToMissingDependency() {
-    // given
-    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self)
-
-    try! Kraken.register(AutoWiredService.self) {
-      AutoWiredServiceImpl(serviceA: $0, serviceB: $1) as AutoWiredService
+        let serviceB = service.serviceB
+        XCTAssertTrue(serviceB is ServiceBImpl)
     }
 
-    // when
-    let service = try! Kraken.resolveByAutoWiring(AutoWiredService.self)
+    func testThatAutoWiringIsNotSupportedIfNoFactoryWithArgumentIsRegistered() {
+        // given
+        Kraken.register(ServiceA.self, factory: { ServiceAImpl() as ServiceA })
 
-    // then
-    XCTAssertNil(service)
-  }
+        // when
+        let serviceA = try! Kraken.resolveByAutoWiring(ServiceA.self)
 
-  func testThatAutoWiringThrowsErrorIfAutoWiringFails() {
-    // given
-    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self)
-    Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self)
-
-    try! Kraken.register(AutoWiredService.self) {
-      AutoWiredServiceImpl(serviceA: $0, serviceB: $1) as AutoWiredService
+        // then
+        XCTAssertNil(serviceA)
     }
 
-    Kraken.remove(ServiceA.self)
+    func testThatAutoWiringIsNotSupportedIfAutoWiringFactoryIsNilDueToMissingDependency() {
+        // given
+        Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self)
 
-    // when
-    AssertThrows(expression: try Kraken.resolveByAutoWiring(AutoWiredService.self)) { error in
-      guard case let KrakenError.autoWiringFailed(key, _) = error else { return false }
+        try! Kraken.register(AutoWiredService.self) {
+            AutoWiredServiceImpl(serviceA: $0, serviceB: $1) as AutoWiredService
+        }
 
-      // then
-      let expectedKey = String(describing: AutoWiredService.self)
-      XCTAssertEqual(key, expectedKey)
+        // when
+        let service = try! Kraken.resolveByAutoWiring(AutoWiredService.self)
 
-      return true
+        // then
+        XCTAssertNil(service)
     }
-  }
+
+    func testThatAutoWiringThrowsErrorIfAutoWiringFails() {
+        // given
+        Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self)
+        Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self)
+
+        try! Kraken.register(AutoWiredService.self) {
+            AutoWiredServiceImpl(serviceA: $0, serviceB: $1) as AutoWiredService
+        }
+
+        Kraken.remove(ServiceA.self)
+
+        // when
+        AssertThrows(expression: try Kraken.resolveByAutoWiring(AutoWiredService.self)) { error in
+            guard case let KrakenError.autoWiringFailed(key, _) = error else {
+                return false
+            }
+
+            // then
+            let expectedKey = String(describing: AutoWiredService.self)
+            XCTAssertEqual(key, expectedKey)
+
+            return true
+        }
+    }
 
 }

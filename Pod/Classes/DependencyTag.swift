@@ -29,6 +29,7 @@ import Foundation
  Use a tag in case you need to register multiple factories of the same type,
  to differentiate them. Tags can be either String or Int, to your convenience.
  */
+
 public enum Tag: Equatable {
 
     case String(StringLiteralType)
@@ -53,6 +54,7 @@ public func ==(lhs: Tag, rhs: Tag) -> Bool {
  Implement this protocol on your type if you want to use its instances as `Kraken`'s tags. `Tag`, `String`, `Int`
  and any `RawRepresentable` with `RawType` of `String` or `Int` by default conform to this protocol.
  */
+
 public protocol DependencyTagConvertible {
     var dependencyTag: Tag { get }
 }

@@ -1,4 +1,4 @@
-//
+s//
 //  Kraken
 //
 //  Copyright (c) 2016 Syed Sabir Salman-Al-Musawi <sabirvirtuoso@gmail.com>
@@ -26,12 +26,12 @@ import Kraken
 
 protocol ServiceA: Injectable {
 
-  var serviceB: ServiceB { get set }
+    var serviceB: ServiceB { get set }
 
-  var serviceC: ServiceC { get set }
+    var serviceC: ServiceC { get set }
 
-  var serviceAImplDataSource: GenericDataSource<ServiceAImpl> { get set }
+    var serviceAImplDataSource: GenericDataSource<ServiceAImpl> { get set }
 
-  func myCompanyA() -> String
+    func myCompanyA() -> String
 
 }

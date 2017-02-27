@@ -26,8 +26,8 @@ import Kraken
 
 protocol ServiceD: Injectable {
 
-  var serviceB: ServiceB! { get set }
+    var serviceB: ServiceB! { get set }
 
-  func myCompanyAddress() -> String
+    func myCompanyAddress() -> String
 
 }

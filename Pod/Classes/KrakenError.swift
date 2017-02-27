@@ -30,58 +30,58 @@ import Foundation
 
 public enum KrakenError: Error, CustomStringConvertible {
 
-  /**
-   Thrown if no matching definition was registered in container.
+    /**
+     Thrown if no matching definition was registered in container.
 
-   - parameter key: definition key used to lookup matching definition
-   */
-  case definitionNotFound(key: String)
+     - parameter key: definition key used to lookup matching definition
+     */
+    case definitionNotFound(key: String)
 
-  /**
-   Thrown if no factory is registered for definition in container.
+    /**
+     Thrown if no factory is registered for definition in container.
 
-   - parameter key: definition key used to lookup matching definition
-   */
-  case factoryNotFound(key: String)
+     - parameter key: definition key used to lookup matching definition
+     */
+    case factoryNotFound(key: String)
 
-  /**
-   Thrown if actual number of arguments passed to factory does not match
-   number of arguments registered.
+    /**
+     Thrown if actual number of arguments passed to factory does not match
+     number of arguments registered.
 
-   - parameter key: definition key used to lookup matching definition
-   */
-  case argumentCountNotMatched(key: String)
+     - parameter key: definition key used to lookup matching definition
+     */
+    case argumentCountNotMatched(key: String)
 
-  /**
-   Thrown if factory with runtime arguments is registered with a
-   Dependency scope of Eager Singleton.
+    /**
+     Thrown if factory with runtime arguments is registered with a
+     Dependency scope of Eager Singleton.
 
-   - parameter key: definition key used to lookup matching definition
-   */
-  case eagerSingletonNotAllowed(key: String)
+     - parameter key: definition key used to lookup matching definition
+     */
+    case eagerSingletonNotAllowed(key: String)
 
-  /**
-   Thrown if container failed to auto-wire a type.
+    /**
+     Thrown if container failed to auto-wire a type.
 
-   - parameters:
-   - key: key of definition that failed to be resolved by auto-wiring
-   - underlyingError: The error that cause auto-wiring to fail
-   */
-  case autoWiringFailed(key: String, underlyingError: Error)
+     - parameters:
+     - key: key of definition that failed to be resolved by auto-wiring
+     - underlyingError: The error that cause auto-wiring to fail
+     */
+    case autoWiringFailed(key: String, underlyingError: Error)
 
-  public var description: String {
-    switch self {
-      case let .definitionNotFound(key):
-        return "No object registered for type: \(key). Did you forget to call register:implementation:scope: for type \(key)"
-      case let .factoryNotFound(key):
-        return "No factory definition is registered for type: \(key)"
-      case let .argumentCountNotMatched(key):
-        return "Number of arguments expected by factory of type: \(key) does not match with actual arguments passed"
-      case let .eagerSingletonNotAllowed(key):
-        return "Cannot register factory with runtime arguments for type: \(key). Scope cannot be EagerSingleton."
-      case let .autoWiringFailed(key, error):
-        return "Failed to auto-wire type: \(key). \(error)"
+    public var description: String {
+        switch self {
+        case let .definitionNotFound(key):
+            return "No object registered for type: \(key). Did you forget to call register:implementation:scope: for type \(key)"
+        case let .factoryNotFound(key):
+            return "No factory definition is registered for type: \(key)"
+        case let .argumentCountNotMatched(key):
+            return "Number of arguments expected by factory of type: \(key) does not match with actual arguments passed"
+        case let .eagerSingletonNotAllowed(key):
+            return "Cannot register factory with runtime arguments for type: \(key). Scope cannot be EagerSingleton."
+        case let .autoWiringFailed(key, error):
+            return "Failed to auto-wire type: \(key). \(error)"
+        }
     }
-  }
 
 }

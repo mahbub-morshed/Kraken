@@ -30,83 +30,83 @@ import Foundation
 
 extension Kraken {
 
-  public static func register(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: () -> Injectable?, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
-    let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
-    registerFactory(interface, tag: tag, scope: scope, factory: factory, completionHandler: completionHandler)
+    public static func register(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: () -> Injectable?, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
+        let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
+        registerFactory(interface, tag: tag, scope: scope, factory: factory, completionHandler: completionHandler)
 
-    switch scope {
-        case .eagerSingleton: singletons[definitionKey] = factory()!
-        case .singleton: break
-        case .prototype: break
+        switch scope {
+            case .eagerSingleton: singletons[definitionKey] = factory()!
+            case .singleton: break
+            case .prototype: break
+        }
     }
-  }
 
-  public static func register<Arg1>(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: @escaping (Arg1) -> Injectable?) throws {
-    if definitionExists(forKey: String(describing: Arg1.self)) {
+    public static func register<Arg1>(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: @escaping (Arg1) -> Injectable?) throws {
+        if definitionExists(forKey: String(describing: Arg1.self)) {
 
-        registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 1) { () throws -> Injectable? in
-            try factory(Kraken.inject(Arg1.self) as! Arg1)
+            registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 1) { () throws -> Injectable? in
+                try factory(Kraken.inject(Arg1.self) as! Arg1)
+            }
+
+            return
         }
 
-        return
+        try verifyScope(interface, tag: tag, scope: scope)
+        registerFactory(interface, tag: tag, scope: scope, factory: factory, numberOfArguments: 1)
     }
 
-    try verifyScope(interface, tag: tag, scope: scope)
-    registerFactory(interface, tag: tag, scope: scope, factory: factory, numberOfArguments: 1)
-  }
+    public static func register<Arg1, Arg2>(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: @escaping (Arg1, Arg2) -> Injectable?) throws {
+        if definitionExists(forKey: String(describing: Arg1.self)) && definitionExists(forKey: String(describing: Arg2.self)) {
 
-  public static func register<Arg1, Arg2>(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: @escaping (Arg1, Arg2) -> Injectable?) throws {
-    if definitionExists(forKey: String(describing: Arg1.self)) && definitionExists(forKey: String(describing: Arg2.self)) {
+            registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 2) { () throws -> Injectable? in
+                try factory(Kraken.inject(Arg1.self) as! Arg1, Kraken.inject(Arg2.self) as! Arg2)
+            }
 
-        registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 2) { () throws -> Injectable? in
-            try factory(Kraken.inject(Arg1.self) as! Arg1, Kraken.inject(Arg2.self) as! Arg2)
+            return
         }
 
-        return
+        try verifyScope(interface, tag: tag, scope: scope)
+        registerFactory(interface, tag: tag, scope: scope, factory: factory, numberOfArguments: 2)
     }
-
-    try verifyScope(interface, tag: tag, scope: scope)
-    registerFactory(interface, tag: tag, scope: scope, factory: factory, numberOfArguments: 2)
-  }
 
     public static func register<Arg1, Arg2, Arg3>(_ interface: Any, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, factory: @escaping (Arg1, Arg2, Arg3) -> Injectable?) throws {
-    if definitionExists(forKey: String(describing: Arg1.self)) && definitionExists(forKey: String(describing: Arg2.self)) && definitionExists(forKey: String(describing: Arg3.self)) {
+        if definitionExists(forKey: String(describing: Arg1.self)) && definitionExists(forKey: String(describing: Arg2.self)) && definitionExists(forKey: String(describing: Arg3.self)) {
 
-        registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 3) { () throws -> Injectable? in
-            try factory(Kraken.inject(Arg1.self) as! Arg1, Kraken.inject(Arg2.self) as! Arg2, Kraken.inject(Arg3.self) as! Arg3)
+            registerAutoWiringFactory(interface, scope: scope, numberOfArguments: 3) { () throws -> Injectable? in
+                try factory(Kraken.inject(Arg1.self) as! Arg1, Kraken.inject(Arg2.self) as! Arg2, Kraken.inject(Arg3.self) as! Arg3)
+            }
+
+            return
         }
 
-        return
+        try verifyScope(interface, tag: tag, scope: scope)
+        registerFactory(interface, tag: tag, scope: scope, factory: factory, numberOfArguments: 3)
     }
 
-    try verifyScope(interface, tag: tag, scope: scope)
-    registerFactory(interface, tag: tag, scope: scope, factory: factory, numberOfArguments: 3)
-  }
+    fileprivate static func verifyScope(_ interface: Any, tag: DependencyTagConvertible?, scope: DependencyScope) throws {
+        let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
 
-  fileprivate static func verifyScope(_ interface: Any, tag: DependencyTagConvertible?, scope: DependencyScope) throws {
-    let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
-
-    switch scope {
-        case .eagerSingleton: throw KrakenError.eagerSingletonNotAllowed(key: definitionKey)
-        case .singleton: break
-        case .prototype: break
+        switch scope {
+            case .eagerSingleton: throw KrakenError.eagerSingletonNotAllowed(key: definitionKey)
+            case .singleton: break
+            case .prototype: break
+        }
     }
-  }
 
-  fileprivate static func registerFactory<F>(_ interface: Any, tag: DependencyTagConvertible?, scope: DependencyScope, factory: F, numberOfArguments: Int = 0, completionHandler: ((Injectable) -> ())? = nil) {
-    let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
+    fileprivate static func registerFactory<F>(_ interface: Any, tag: DependencyTagConvertible?, scope: DependencyScope, factory: F, numberOfArguments: Int = 0, completionHandler: ((Injectable) -> ())? = nil) {
+        let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
 
-    definitionMap[definitionKey] = FactoryDefinition(scope: scope, factory: factory, numberOfArguments: numberOfArguments, completionHandler: completionHandler)
-  }
+        definitionMap[definitionKey] = FactoryDefinition(scope: scope, factory: factory, numberOfArguments: numberOfArguments, completionHandler: completionHandler)
+    }
 
-  fileprivate static func registerAutoWiringFactory(_ interface: Any, scope: DependencyScope, numberOfArguments: Int = 0, autoWiringFactory: @escaping () throws -> Injectable?) {
-    let definitionKey = String(describing: interface)
+    fileprivate static func registerAutoWiringFactory(_ interface: Any, scope: DependencyScope, numberOfArguments: Int = 0, autoWiringFactory: @escaping () throws -> Injectable?) {
+        let definitionKey = String(describing: interface)
 
-    let dependencydefinition = DependencyDefinition(scope: scope, numberOfArguments: 3)
-    dependencydefinition.autoWiringFactory = autoWiringFactory
+        let dependencydefinition = DependencyDefinition(scope: scope, numberOfArguments: 3)
+        dependencydefinition.autoWiringFactory = autoWiringFactory
 
-    definitionMap[definitionKey] = dependencydefinition
-  }
+        definitionMap[definitionKey] = dependencydefinition
+    }
 
 }
 
@@ -116,58 +116,64 @@ extension Kraken {
 
 extension Kraken {
 
-  public static func inject<Arg1>(_ typeToInject: Any, tag: DependencyTagConvertible? = nil, withArguments arg1: Arg1) throws -> Injectable? {
-    return try resolveFactory(typeToInject, tag: tag) { (factory: (Arg1) -> Injectable?) in factory(arg1) }
-  }
-
-  public static func inject<Arg1, Arg2>(_ typeToInject: Any, tag: DependencyTagConvertible? = nil, withArguments arg1: Arg1, _ arg2: Arg2) throws -> Injectable? {
-    return try resolveFactory(typeToInject, tag: tag) { (factory: (Arg1, Arg2) -> Injectable?) in factory(arg1, arg2) }
-  }
-
-  public static func inject<Arg1, Arg2, Arg3>(_ typeToInject: Any, tag: DependencyTagConvertible? = nil, withArguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) throws -> Injectable? {
-    return try resolveFactory(typeToInject, tag: tag) { (factory: (Arg1, Arg2, Arg3) -> Injectable?) in factory(arg1, arg2, arg3) }
-  }
-
-  public static func resolveFactory<F>(_ typeToInject: Any, tag: DependencyTagConvertible?, builder: @escaping (F) -> Injectable?) throws -> Injectable? {
-    let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
-    let factoryDefinition = try verifyAndReturnFactoryDefinition(typeToInject, tag: tag, builder: builder)
-
-    switch factoryDefinition.scope {
-        case .singleton : return singletonInstance(definitionKey, factoryDefinition: factoryDefinition, builder: builder)
-        case .prototype : return builder(factoryDefinition.factory)
-        default : return nil
-    }
-  }
-
-  fileprivate static func verifyAndReturnFactoryDefinition<F>(_ typeToInject: Any, tag: DependencyTagConvertible?, builder: (F) -> Injectable?) throws -> FactoryDefinition<F> {
-    let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
-
-    guard definitionExists(forKey: definitionKey) else {
-      throw KrakenError.definitionNotFound(key: definitionKey)
+    public static func inject<Arg1>(_ typeToInject: Any, tag: DependencyTagConvertible? = nil, withArguments arg1: Arg1) throws -> Injectable? {
+        return try resolveFactory(typeToInject, tag: tag) { (factory: (Arg1) -> Injectable?) in
+            factory(arg1)
+        }
     }
 
-    let dependencyDefinition = definitionMap[definitionKey]
-
-    guard let factoryDefinition = dependencyDefinition as? FactoryDefinition<F> else {
-      if dependencyDefinition!.numberOfArguments == 0 {
-        throw KrakenError.factoryNotFound(key: definitionKey)
-      }
-
-      throw KrakenError.argumentCountNotMatched(key: definitionKey)
+    public static func inject<Arg1, Arg2>(_ typeToInject: Any, tag: DependencyTagConvertible? = nil, withArguments arg1: Arg1, _ arg2: Arg2) throws -> Injectable? {
+        return try resolveFactory(typeToInject, tag: tag) { (factory: (Arg1, Arg2) -> Injectable?) in
+            factory(arg1, arg2)
+        }
     }
 
-    return factoryDefinition
-  }
-
-  fileprivate static func singletonInstance<F>(_ definitionKey: String, factoryDefinition: FactoryDefinition<F>, builder: @escaping (F) -> Injectable?) -> Injectable? {
-    synchronized(Kraken.self) {
-      if singletons[definitionKey] == nil {
-        singletons[definitionKey] = builder(factoryDefinition.factory)!
-      }
+    public static func inject<Arg1, Arg2, Arg3>(_ typeToInject: Any, tag: DependencyTagConvertible? = nil, withArguments arg1: Arg1, _ arg2: Arg2, _ arg3: Arg3) throws -> Injectable? {
+        return try resolveFactory(typeToInject, tag: tag) { (factory: (Arg1, Arg2, Arg3) -> Injectable?) in
+            factory(arg1, arg2, arg3)
+        }
     }
 
-    return singletons[definitionKey]
-  }
+    public static func resolveFactory<F>(_ typeToInject: Any, tag: DependencyTagConvertible?, builder: @escaping (F) -> Injectable?) throws -> Injectable? {
+        let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
+        let factoryDefinition = try verifyAndReturnFactoryDefinition(typeToInject, tag: tag, builder: builder)
+
+        switch factoryDefinition.scope {
+            case .singleton: return singletonInstance(definitionKey, factoryDefinition: factoryDefinition, builder: builder)
+            case .prototype: return builder(factoryDefinition.factory)
+            default: return nil
+        }
+    }
+
+    fileprivate static func verifyAndReturnFactoryDefinition<F>(_ typeToInject: Any, tag: DependencyTagConvertible?, builder: (F) -> Injectable?) throws -> FactoryDefinition<F> {
+        let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
+
+        guard definitionExists(forKey: definitionKey) else {
+            throw KrakenError.definitionNotFound(key: definitionKey)
+        }
+
+        let dependencyDefinition = definitionMap[definitionKey]
+
+        guard let factoryDefinition = dependencyDefinition as? FactoryDefinition<F> else {
+            if dependencyDefinition!.numberOfArguments == 0 {
+                throw KrakenError.factoryNotFound(key: definitionKey)
+            }
+
+            throw KrakenError.argumentCountNotMatched(key: definitionKey)
+        }
+
+        return factoryDefinition
+    }
+
+    fileprivate static func singletonInstance<F>(_ definitionKey: String, factoryDefinition: FactoryDefinition<F>, builder: @escaping (F) -> Injectable?) -> Injectable? {
+        synchronized(Kraken.self) {
+            if singletons[definitionKey] == nil {
+                singletons[definitionKey] = builder(factoryDefinition.factory)!
+            }
+        }
+
+        return singletons[definitionKey]
+    }
 
 }
 

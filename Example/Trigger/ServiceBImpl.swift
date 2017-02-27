@@ -26,16 +26,16 @@ import Kraken
 
 class ServiceBImpl: ServiceB {
 
-  weak var serviceA: ServiceA?
+    weak var serviceA: ServiceA?
 
-  var serviceC: ServiceC = inject(ServiceC.self)
-  var serviceBImplDataSource: GenericDataSource<ServiceBImpl> = inject(GenericDataSource<ServiceBImpl>.self)
+    var serviceC: ServiceC = inject(ServiceC.self)
+    var serviceBImplDataSource: GenericDataSource<ServiceBImpl> = inject(GenericDataSource<ServiceBImpl>.self)
 
-  required init() {
-  }
+    required init() {
+    }
 
-  func myCompanyB() -> String {
-    return "therapB"
-  }
+    func myCompanyB() -> String {
+        return "therapB"
+    }
 
 }

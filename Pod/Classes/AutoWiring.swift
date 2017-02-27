@@ -30,28 +30,27 @@ import Foundation
 
 extension Kraken {
 
-  public static func resolveByAutoWiring(_ typeToInject: Any, tag: DependencyTagConvertible? = nil) throws -> Injectable? {
-    let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
-    let resolvedInstance: Injectable?
+    public static func resolveByAutoWiring(_ typeToInject: Any, tag: DependencyTagConvertible? = nil) throws -> Injectable? {
+        let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
+        let resolvedInstance: Injectable?
 
-    let dependencyDefinition: DependencyDefinition! = definitionMap[definitionKey]
+        let dependencyDefinition: DependencyDefinition! = definitionMap[definitionKey]
 
-    guard isAutoWiringSupported(forDefinition: dependencyDefinition) else {
-      return nil
+        guard isAutoWiringSupported(forDefinition: dependencyDefinition) else {
+            return nil
+        }
+
+        do {
+            resolvedInstance = try dependencyDefinition.autoWiringFactory!()
+        } catch {
+            throw KrakenError.autoWiringFailed(key: definitionKey, underlyingError: error)
+        }
+
+        return resolvedInstance
     }
 
-    do {
-      resolvedInstance = try dependencyDefinition.autoWiringFactory!()
+    fileprivate static func isAutoWiringSupported(forDefinition definition: DependencyDefinition) -> Bool {
+        return definition.numberOfArguments > 0 && definition.autoWiringFactory != nil
     }
-    catch {
-      throw KrakenError.autoWiringFailed(key: definitionKey, underlyingError: error)
-    }
-
-    return resolvedInstance
-  }
-
-  fileprivate static func isAutoWiringSupported(forDefinition definition: DependencyDefinition) -> Bool {
-    return definition.numberOfArguments > 0 && definition.autoWiringFactory != nil
-  }
 
 }

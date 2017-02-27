@@ -26,21 +26,21 @@ import Kraken
 
 class ServiceDImpl: ServiceD {
 
-  var host: String!
-  var port: Int!
-  var serviceB: ServiceB!
+    var host: String!
+    var port: Int!
+    var serviceB: ServiceB!
 
-  required init() {
-  }
+    required init() {
+    }
 
-  init(host: String, port: Int, serviceB: ServiceB) {
-    self.host = host
-    self.port = port
-    self.serviceB = serviceB
-  }
+    init(host: String, port: Int, serviceB: ServiceB) {
+        self.host = host
+        self.port = port
+        self.serviceB = serviceB
+    }
 
-  func myCompanyAddress() -> String {
-    return "My company address is \(host):\(port)"
-  }
+    func myCompanyAddress() -> String {
+        return "My company address is \(host):\(port)"
+    }
 
 }

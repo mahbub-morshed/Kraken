@@ -26,7 +26,7 @@ import Kraken
 
 class ServiceAImplDataSource: GenericDataSource<ServiceAImpl>, Injectable {
 
-  required override init() {
-  }
+    required override init() {
+    }
 
 }

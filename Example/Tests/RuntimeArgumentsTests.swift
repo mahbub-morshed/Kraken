@@ -26,138 +26,147 @@ import XCTest
 @testable import Kraken
 
 private protocol Service: Injectable {
-  var name: String! { get }
+    var name: String! { get }
 }
 
 private class ServiceImp: Service {
 
-  var name: String!
+    var name: String!
 
-  required init() {}
+    required init() {
+    }
 
-  init(name: String, baseURL: String, port: Int) {
-    self.name = name
-  }
+    init(name: String, baseURL: String, port: Int) {
+        self.name = name
+    }
 
 }
 
 private class ServiceImp1: Service {
-  let name: String! = "ServiceImp1"
+    let name: String! = "ServiceImp1"
 
-  required init() {}
+    required init() {
+    }
 }
 
 private class ServiceImp2: Service {
-  let name: String! = "ServiceImp2"
+    let name: String! = "ServiceImp2"
 
-  required init() {}
+    required init() {
+    }
 }
 
 class RuntimeArgumentsTests: XCTestCase {
 
-  override func setUp() {
-    Kraken.reset()
-  }
-
-  func testThatItResolvesInstanceWithNoArgument() {
-    // given
-    Kraken.register(Service.self, factory: { ServiceImp1() as Service })
-
-    // when
-    let service: Service = inject(Service.self)
-
-    // then
-    XCTAssertTrue(service is ServiceImp1)
-  }
-
-  func testThatItResolvesInstanceWithOneArgument() {
-    // given
-    let arg1 = 1
-
-    try! Kraken.register(Service.self) { (a1: Int) -> Injectable in
-      XCTAssertEqual(a1, arg1)
-
-      return ServiceImp1() as Service
+    override func setUp() {
+        Kraken.reset()
     }
 
-    // when
-    let service: Service = inject(Service.self, withArguments: arg1)
+    func testThatItResolvesInstanceWithNoArgument() {
+        // given
+        Kraken.register(Service.self, factory: { ServiceImp1() as Service })
 
-    // then
-    XCTAssertTrue(service is ServiceImp1)
-  }
+        // when
+        let service: Service = inject(Service.self)
 
-  func testThatItResolvesInstanceWithTwoArguments() {
-    // given
-    let arg1 = 1, arg2 = 2
-
-    try! Kraken.register(Service.self) { (a1: Int, a2: Int) -> Injectable in
-      XCTAssertEqual(a1, arg1)
-      XCTAssertEqual(a2, arg2)
-
-      return ServiceImp1() as Service
+        // then
+        XCTAssertTrue(service is ServiceImp1)
     }
 
-    // when
-    let service: Service = inject(Service.self, withArguments: arg1, arg2)
+    func testThatItResolvesInstanceWithOneArgument() {
+        // given
+        let arg1 = 1
 
-    // then
-    XCTAssertTrue(service is ServiceImp1)
-  }
+        try! Kraken.register(Service.self) { (a1: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
 
-  func testThatItResolvesInstanceWithThreeArguments() {
-    // given
-    let arg1 = 1, arg2 = 2, arg3 = 3
+            return ServiceImp1() as Service
+        }
 
-    try! Kraken.register(Service.self) { (a1: Int, a2: Int, a3: Int) -> Injectable in
-      XCTAssertEqual(a1, arg1)
-      XCTAssertEqual(a2, arg2)
-      XCTAssertEqual(a3, arg3)
+        // when
+        let service: Service = inject(Service.self, withArguments: arg1)
 
-      return ServiceImp1() as Service
+        // then
+        XCTAssertTrue(service is ServiceImp1)
     }
 
-    // when
-    let service: Service = inject(Service.self, withArguments: arg1, arg2, arg3)
+    func testThatItResolvesInstanceWithTwoArguments() {
+        // given
+        let arg1 = 1, arg2 = 2
 
-    // then
-    XCTAssertTrue(service is ServiceImp1)
-  }
+        try! Kraken.register(Service.self) { (a1: Int, a2: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+            XCTAssertEqual(a2, arg2)
 
-  func testThatItThrowsErrorIfFactoryIsNotRegisteredForDefinitionWithRuntimeArguments() {
-    // given
-    let arg1 = 1
+            return ServiceImp1() as Service
+        }
 
-    Kraken.register(Service.self, implementation: ServiceImp1())
+        // when
+        let service: Service = inject(Service.self, withArguments: arg1, arg2)
 
-    // when
-    AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1)) { error in
-      guard case let KrakenError.factoryNotFound(key) = error else { return false }
-
-      // then
-      let expectedKey = String(describing: Service.self)
-      XCTAssertEqual(key, expectedKey)
-
-      return true
+        // then
+        XCTAssertTrue(service is ServiceImp1)
     }
-  }
 
-  func testThatItThrowsErrorIfNumberOfArgumentsAtRuntimeMismatchesThatOfRegisteredFactory() {
-    // given
-    let arg1 = 1, arg2 = "string"
+    func testThatItResolvesInstanceWithThreeArguments() {
+        // given
+        let arg1 = 1, arg2 = 2, arg3 = 3
 
-    try! Kraken.register(Service.self) { (a1: Int) -> Injectable in ServiceImp1() as Service }
+        try! Kraken.register(Service.self) { (a1: Int, a2: Int, a3: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+            XCTAssertEqual(a2, arg2)
+            XCTAssertEqual(a3, arg3)
 
-    // when
-    AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1, arg2)) { error in
-      guard case let KrakenError.argumentCountNotMatched(key) = error else { return false }
+            return ServiceImp1() as Service
+        }
 
-      // then
-      let expectedKey = String(describing: Service.self)
-      XCTAssertEqual(key, expectedKey)
+        // when
+        let service: Service = inject(Service.self, withArguments: arg1, arg2, arg3)
 
-      return true
+        // then
+        XCTAssertTrue(service is ServiceImp1)
     }
-  }
+
+    func testThatItThrowsErrorIfFactoryIsNotRegisteredForDefinitionWithRuntimeArguments() {
+        // given
+        let arg1 = 1
+
+        Kraken.register(Service.self, implementation: ServiceImp1())
+
+        // when
+        AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1)) { error in
+            guard case let KrakenError.factoryNotFound(key) = error else {
+                return false
+            }
+
+            // then
+            let expectedKey = String(describing: Service.self)
+            XCTAssertEqual(key, expectedKey)
+
+            return true
+        }
+    }
+
+    func testThatItThrowsErrorIfNumberOfArgumentsAtRuntimeMismatchesThatOfRegisteredFactory() {
+        // given
+        let arg1 = 1, arg2 = "string"
+
+        try! Kraken.register(Service.self) { (a1: Int) -> Injectable in
+            ServiceImp1() as Service
+        }
+
+        // when
+        AssertThrows(expression: try Kraken.inject(Service.self, withArguments: arg1, arg2)) { error in
+            guard case let KrakenError.argumentCountNotMatched(key) = error else {
+                return false
+            }
+
+            // then
+            let expectedKey = String(describing: Service.self)
+            XCTAssertEqual(key, expectedKey)
+
+            return true
+        }
+    }
 
 }

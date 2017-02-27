@@ -25,7 +25,7 @@
 import XCTest
 
 func AssertThrows<T>(_ file: StaticString = #file, line: UInt = #line, expression: @autoclosure () throws -> T) {
-  AssertThrows(file, line: line, expression: expression, "")
+    AssertThrows(file, line: line, expression: expression, "")
 }
 
 func AssertThrows<T>(_ file: StaticString = #file, line: UInt = #line, expression: @autoclosure () throws -> T, _ message: String) {
@@ -33,15 +33,14 @@ func AssertThrows<T>(_ file: StaticString = #file, line: UInt = #line, expressio
 }
 
 func AssertThrows<T>(_ file: StaticString = #file, line: UInt = #line, expression: @autoclosure () throws -> T, checkError: (Error) -> Bool) {
-  AssertThrows(file, line: line, expression: expression, checkError: checkError, "")
+    AssertThrows(file, line: line, expression: expression, checkError: checkError, "")
 }
 
 func AssertThrows<T>(_ file: StaticString = #file, line: UInt = #line, expression: @autoclosure () throws -> T, checkError: (Error) -> Bool, _ message: String) {
-  do {
-    let _ = try expression()
-    XCTFail(message, file: file, line: line)
-  }
-  catch {
-    XCTAssertTrue(checkError(error), "Thrown unexpected error: \(error)", file: file, line: line)
-  }
+    do {
+        let _ = try expression()
+        XCTFail(message, file: file, line: line)
+    } catch {
+        XCTAssertTrue(checkError(error), "Thrown unexpected error: \(error)", file: file, line: line)
+    }
 }

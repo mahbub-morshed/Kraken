@@ -26,21 +26,21 @@ import Kraken
 
 class ServiceEImpl: ServiceE {
 
-  var serviceA: ServiceA!
-  var serviceB: ServiceB!
-  var serviceC: ServiceC!
+    var serviceA: ServiceA!
+    var serviceB: ServiceB!
+    var serviceC: ServiceC!
 
-  required init() {
-  }
+    required init() {
+    }
 
-  init(serviceA: ServiceA, serviceB: ServiceB, serviceC: ServiceC) {
-    self.serviceA = serviceA
-    self.serviceB = serviceB
-    self.serviceC = serviceC
-  }
+    init(serviceA: ServiceA, serviceB: ServiceB, serviceC: ServiceC) {
+        self.serviceA = serviceA
+        self.serviceB = serviceB
+        self.serviceC = serviceC
+    }
 
-  func myDependencyAddresses() -> String {
-    return "injected memory addresses are \(Unmanaged<AnyObject>.passUnretained(serviceA as AnyObject).toOpaque())  \(Unmanaged<AnyObject>.passUnretained(serviceB as AnyObject).toOpaque())  \(Unmanaged<AnyObject>.passUnretained(serviceC as AnyObject).toOpaque()))"
-  }
+    func myDependencyAddresses() -> String {
+        return "injected memory addresses are \(Unmanaged<AnyObject>.passUnretained(serviceA as AnyObject).toOpaque())  \(Unmanaged<AnyObject>.passUnretained(serviceB as AnyObject).toOpaque())  \(Unmanaged<AnyObject>.passUnretained(serviceC as AnyObject).toOpaque()))"
+    }
 
 }

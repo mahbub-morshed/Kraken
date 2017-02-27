@@ -26,12 +26,12 @@ import Kraken
 
 protocol ServiceB: Injectable {
 
-  weak var serviceA: ServiceA? { get set }
+    weak var serviceA: ServiceA? { get set }
 
-  var serviceC: ServiceC { get set }
+    var serviceC: ServiceC { get set }
 
-  var serviceBImplDataSource: GenericDataSource<ServiceBImpl> { get set }
+    var serviceBImplDataSource: GenericDataSource<ServiceBImpl> { get set }
 
-  func myCompanyB() -> String
+    func myCompanyB() -> String
 
 }
