@@ -48,8 +48,9 @@ public final class Kraken {
 
   }
 
-  public static func register(_ interface: Any, implementationType: Injectable.Type, scope: DependencyScope = .prototype, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
-    let definitionKey = String(describing: interface)
+  public static func register(_ interface: Any, implementationType: Injectable.Type, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
+
+    let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
     definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType, completionHandler: completionHandler)
     
     switch scope {
@@ -59,20 +60,20 @@ public final class Kraken {
     }
   }
 
-  public static func register(_ interface: Any, implementation: Injectable) {
-    let definitionKey = String(describing: interface)
+  public static func register(_ interface: Any, tag: DependencyTagConvertible? = nil, implementation: Injectable) {
+    let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
     definitionMap[definitionKey] = ImplementationDefinition(scope: .eagerSingleton, implementation: implementation)
 
     singletons[definitionKey] = implementation
   }
 
-  public static func inject(_ typeToInject: Any) throws -> Injectable? {
-    return try resolve(typeToInject)
+  public static func inject(_ typeToInject: Any, tag: DependencyTagConvertible? = nil) throws -> Injectable? {
+    return try resolve(typeToInject, tag: tag)
   }
 
   fileprivate static var depth: Int = 0
 
-  public static func resolve(_ typeToInject: Any) throws -> Injectable? {
+  public static func resolve(_ typeToInject: Any, tag: DependencyTagConvertible? = nil) throws -> Injectable? {
     depth = depth + 1
 
     defer {
@@ -83,7 +84,7 @@ public final class Kraken {
         }
     }
 
-    let definitionKey = String(describing: typeToInject)
+    let definitionKey = prepareDefinitionKey(forInterface: typeToInject, andTag: tag)
 
     guard definitionExists(forKey: definitionKey) else {
        throw KrakenError.definitionNotFound(key: definitionKey)
@@ -108,7 +109,7 @@ public final class Kraken {
     }
 
     if dependencyDefinition.numberOfArguments == 0 {
-      resolvedInstance = try resolveFactory(typeToInject) { (factory: () -> Injectable?) in factory() }
+        resolvedInstance = try resolveFactory(typeToInject, tag: tag) { (factory: () -> Injectable?) in factory() }
       resolvedInstances[definitionKey] = resolvedInstance
 
       defer {
@@ -118,7 +119,7 @@ public final class Kraken {
       return resolvedInstance
     }
 
-    return try resolveByAutoWiring(typeToInject)
+    return try resolveByAutoWiring(typeToInject, tag: tag)
   }
 
   fileprivate static func invokeCompletionHandler(_ dependencyDefinition: DependencyDefinition, resolvedInstance: Injectable?) {
@@ -133,6 +134,14 @@ public final class Kraken {
         case .singleton: return singletonInstance(definitionKey, implementationDefinition: implementationDefinition)
         case .prototype: return implementationDefinition.implementationType!.init()
     }
+  }
+
+  static func prepareDefinitionKey(forInterface interface: Any, andTag tag: DependencyTagConvertible?) -> String {
+    guard let dependencyTag = tag else {
+        return String(describing: interface)
+    }
+
+    return String(describing: interface) + String(describing: dependencyTag.dependencyTag)
   }
 
   static func definitionExists(forKey definitionKey: String) -> Bool {
@@ -161,8 +170,8 @@ public final class Kraken {
 
 extension Kraken {
 
-  public static func remove(_ interface: Any) {
-    let definitionKey = String(describing: interface)
+  public static func remove(_ interface: Any, tag: DependencyTagConvertible? = nil) {
+    let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
     remove(definitionKey: definitionKey)
   }
 
@@ -191,8 +200,8 @@ extension Kraken {
 
 extension Kraken {
 
-  public static func injectWeak(_ typeToInject: Any) throws -> WeakDependency {
-    let resolvedInstance = try Kraken.inject(typeToInject)
+  public static func injectWeak(_ typeToInject: Any, tag: DependencyTagConvertible? = nil) throws -> WeakDependency {
+    let resolvedInstance = try Kraken.inject(typeToInject, tag: tag)
 
     return WeakDependency(instance: resolvedInstance!)
   }
@@ -217,10 +226,10 @@ public final class WeakDependency {
 /// MARK:- Global functions for injecting generic types without runtime arguments
 
 
-public func inject<T>(_ typeToInject: T.Type) -> T where T: Any {
-  return try! Kraken.inject(typeToInject) as! T
+public func inject<T>(_ typeToInject: T.Type, tag: DependencyTagConvertible? = nil) -> T where T: Any {
+  return try! Kraken.inject(typeToInject, tag: tag) as! T
 }
 
-public func injectWeak(_ typeToInject: Any) -> WeakDependency {
-  return try! Kraken.injectWeak(typeToInject)
+public func injectWeak(_ typeToInject: Any, tag: DependencyTagConvertible? = nil) -> WeakDependency {
+  return try! Kraken.injectWeak(typeToInject, tag: tag)
 }
