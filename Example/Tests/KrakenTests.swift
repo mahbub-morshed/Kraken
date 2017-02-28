@@ -28,11 +28,11 @@ import XCTest
 private protocol Service: Injectable {
 }
 
-public enum ServiceTypeNumber: Int {
+public enum ServiceTypeNumber: Int, DependencyTagConvertible {
     case Normal = 0, VIP
 }
 
-public enum ServiceTypeString: String {
+public enum ServiceTypeString: String, DependencyTagConvertible {
     case Normal = "Normal", VIP = "VIP"
 }
 
@@ -62,7 +62,7 @@ class KrakenTests: XCTestCase {
         Kraken.reset()
     }
 
-    func testThatItResolvesDependencyRegisteredWithImplementation() {
+    func testThatItResolvesDependencyRegisteredWithSingleImplementation() {
         // given
         Kraken.register(Service.self, implementation: ServiceImp2())
 
@@ -85,7 +85,67 @@ class KrakenTests: XCTestCase {
         XCTAssertTrue(impService is ServiceImp2)
     }
 
-    func testThatItResolvesDependencyRegisteredWithImplementationType() {
+    func testThatItResolvesDependencyRegisteredWithMultipleImplementationsWithTags() {
+        // given
+        Kraken.register(Service.self, tag: ServiceTypeNumber.Normal, implementation: ServiceImp1())
+        Kraken.register(Service.self, tag: ServiceTypeNumber.VIP, implementation: ServiceImp2())
+
+        // when
+        let serviceInstanceOne: Service = inject(Service.self, tag: ServiceTypeNumber.Normal)
+
+        // then
+        XCTAssertTrue(serviceInstanceOne is ServiceImp1)
+
+        // and when
+        let serviceInstanceTwo: Service = inject(Service.self, tag: ServiceTypeNumber.VIP)
+
+        // then
+        XCTAssertTrue(serviceInstanceTwo is ServiceImp2)
+
+        // and when
+        let optService: Service? = inject(Service.self, tag: ServiceTypeNumber.Normal)
+
+        // then
+        XCTAssertTrue(optService is ServiceImp1)
+
+        // and when
+        let impService: Service! = inject(Service.self, tag: ServiceTypeNumber.VIP)
+
+        // then
+        XCTAssertTrue(impService is ServiceImp2)
+    }
+
+    func testThatItResolvesDependencyRegisteredWithMultipleImplementationsWithAndWithoutTag() {
+        // given
+        Kraken.register(Service.self, tag: ServiceTypeNumber.Normal, implementation: ServiceImp1())
+        Kraken.register(Service.self, implementation: ServiceImp2())
+
+        // when
+        let serviceInstanceOne: Service = inject(Service.self, tag: ServiceTypeNumber.Normal)
+
+        // then
+        XCTAssertTrue(serviceInstanceOne is ServiceImp1)
+
+        // and when
+        let serviceInstanceTwo: Service = inject(Service.self)
+
+        // then
+        XCTAssertTrue(serviceInstanceTwo is ServiceImp2)
+
+        // and when
+        let optService: Service? = inject(Service.self, tag: ServiceTypeNumber.Normal)
+
+        // then
+        XCTAssertTrue(optService is ServiceImp1)
+
+        // and when
+        let impService: Service! = inject(Service.self)
+
+        // then
+        XCTAssertTrue(impService is ServiceImp2)
+    }
+
+    func testThatItResolvesDependencyRegisteredWithSingleImplementationType() {
         // given
         Kraken.register(Service.self, implementationType: ServiceImp1.self)
 
@@ -108,7 +168,67 @@ class KrakenTests: XCTestCase {
         XCTAssertTrue(impService is ServiceImp1)
     }
 
-    func testThatNewRegistrationOverridesPreviousRegistration() {
+    func testThatItResolvesDependencyRegisteredWithMultipleImplementationTypesWithTags() {
+        // given
+        Kraken.register(Service.self, tag: ServiceTypeString.Normal, implementationType: ServiceImp1.self)
+        Kraken.register(Service.self, tag: ServiceTypeString.VIP, implementationType: ServiceImp2.self)
+
+        // when
+        let serviceInstanceOne: Service = inject(Service.self, tag: ServiceTypeString.Normal)
+
+        // then
+        XCTAssertTrue(serviceInstanceOne is ServiceImp1)
+
+        // and when
+        let serviceInstanceTwo: Service = inject(Service.self, tag: ServiceTypeString.VIP)
+
+        // then
+        XCTAssertTrue(serviceInstanceTwo is ServiceImp2)
+
+        // and when
+        let optService: Service? = inject(Service.self, tag: ServiceTypeString.Normal)
+
+        // then
+        XCTAssertTrue(optService is ServiceImp1)
+
+        // and when
+        let impService: Service! = inject(Service.self, tag: ServiceTypeString.VIP)
+
+        // then
+        XCTAssertTrue(impService is ServiceImp2)
+    }
+
+    func testThatItResolvesDependencyRegisteredWithMultipleImplementationTypesWithAndWithoutTags() {
+        // given
+        Kraken.register(Service.self, tag: ServiceTypeString.Normal, implementationType: ServiceImp1.self)
+        Kraken.register(Service.self, implementationType: ServiceImp2.self)
+
+        // when
+        let serviceInstanceOne: Service = inject(Service.self, tag: ServiceTypeString.Normal)
+
+        // then
+        XCTAssertTrue(serviceInstanceOne is ServiceImp1)
+
+        // and when
+        let serviceInstanceTwo: Service = inject(Service.self)
+
+        // then
+        XCTAssertTrue(serviceInstanceTwo is ServiceImp2)
+
+        // and when
+        let optService: Service? = inject(Service.self, tag: ServiceTypeString.Normal)
+
+        // then
+        XCTAssertTrue(optService is ServiceImp1)
+
+        // and when
+        let impService: Service! = inject(Service.self)
+
+        // then
+        XCTAssertTrue(impService is ServiceImp2)
+    }
+
+    func testThatNewRegistrationWithoutTagOverridesPreviousRegistration() {
         // given
         Kraken.register(Service.self, implementation: ServiceImp1())
         let service1: Service = inject(Service.self)
@@ -116,6 +236,20 @@ class KrakenTests: XCTestCase {
         // when
         Kraken.register(Service.self, implementation: ServiceImp2())
         let service2: Service = inject(Service.self)
+
+        // then
+        XCTAssertTrue(service1 is ServiceImp1)
+        XCTAssertTrue(service2 is ServiceImp2)
+    }
+
+    func testThatNewRegistrationWithTagOverridesPreviousRegistration() {
+        // given
+        Kraken.register(Service.self, tag: ServiceTypeNumber.Normal, implementation: ServiceImp1())
+        let service1: Service = inject(Service.self, tag: ServiceTypeNumber.Normal)
+
+        // when
+        Kraken.register(Service.self, tag: ServiceTypeNumber.Normal, implementation: ServiceImp2())
+        let service2: Service = inject(Service.self, tag: ServiceTypeNumber.Normal)
 
         // then
         XCTAssertTrue(service1 is ServiceImp1)
@@ -194,7 +328,7 @@ class KrakenTests: XCTestCase {
         }
     }
 
-    func testThatItRemovesDependencyDefinitionSuccessfully() {
+    func testThatItRemovesDependencyDefinitionWithoutTagSuccessfully() {
         // given
         Kraken.register(ServiceImp1.self, implementation: ServiceImp1())
 
@@ -203,6 +337,17 @@ class KrakenTests: XCTestCase {
 
         // then
         XCTAssertFalse(Kraken.definitionExists(forKey: String(describing: ServiceImp1.self)))
+    }
+
+    func testThatItRemovesDependencyDefinitionWithTagSuccessfully() {
+        // given
+        Kraken.register(ServiceImp1.self, tag: ServiceTypeString.Normal, implementation: ServiceImp1())
+
+        // when
+        Kraken.remove(ServiceImp1.self, tag: ServiceTypeString.Normal)
+
+        // then
+        XCTAssertFalse(Kraken.definitionExists(forKey: String(describing: ServiceImp1.self) + String(describing: ServiceTypeString.Normal)))
     }
 
     func testThatItResolvesCircularDependencies() {

@@ -62,7 +62,7 @@ class RuntimeArgumentsTests: XCTestCase {
         Kraken.reset()
     }
 
-    func testThatItResolvesInstanceWithNoArgument() {
+    func testThatItResolvesInstanceWithoutTagWithNoArgument() {
         // given
         Kraken.register(Service.self, factory: { ServiceImp1() as Service })
 
@@ -73,7 +73,25 @@ class RuntimeArgumentsTests: XCTestCase {
         XCTAssertTrue(service is ServiceImp1)
     }
 
-    func testThatItResolvesInstanceWithOneArgument() {
+    func testThatItResolvesInstanceWithTagWithNoArgument() {
+        // given
+        Kraken.register(Service.self, tag: ServiceTypeString.Normal, factory: { ServiceImp1() as Service })
+        Kraken.register(Service.self, tag: ServiceTypeString.VIP, factory: { ServiceImp2() as Service })
+
+        // when
+        let serviceOne: Service = inject(Service.self, tag: ServiceTypeString.Normal)
+
+        // then
+        XCTAssertTrue(serviceOne is ServiceImp1)
+
+        // and when
+        let serviceTwo: Service = inject(Service.self, tag: ServiceTypeString.VIP)
+
+        // then
+        XCTAssertTrue(serviceTwo is ServiceImp2)
+    }
+
+    func testThatItResolvesInstanceWithoutTagWithOneArgument() {
         // given
         let arg1 = 1
 
@@ -90,7 +108,36 @@ class RuntimeArgumentsTests: XCTestCase {
         XCTAssertTrue(service is ServiceImp1)
     }
 
-    func testThatItResolvesInstanceWithTwoArguments() {
+    func testThatItResolvesInstanceWithTagWithOneArgument() {
+        // given
+        let arg1 = 1
+
+        try! Kraken.register(Service.self, tag: ServiceTypeNumber.Normal) { (a1: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+
+            return ServiceImp1() as Service
+        }
+
+        try! Kraken.register(Service.self, tag: ServiceTypeNumber.VIP) { (a1: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+
+            return ServiceImp2() as Service
+        }
+
+        // when
+        let serviceOne: Service = inject(Service.self, tag: ServiceTypeNumber.Normal, withArguments: arg1)
+
+        // then
+        XCTAssertTrue(serviceOne is ServiceImp1)
+
+        // and when
+        let serviceTwo: Service = inject(Service.self, tag: ServiceTypeNumber.VIP, withArguments: arg1)
+
+        // then
+        XCTAssertTrue(serviceTwo is ServiceImp2)
+    }
+
+    func testThatItResolvesInstanceWithoutTagWithTwoArguments() {
         // given
         let arg1 = 1, arg2 = 2
 
@@ -108,7 +155,38 @@ class RuntimeArgumentsTests: XCTestCase {
         XCTAssertTrue(service is ServiceImp1)
     }
 
-    func testThatItResolvesInstanceWithThreeArguments() {
+    func testThatItResolvesInstanceWithTagWithTwoArguments() {
+        // given
+        let arg1 = 1, arg2 = 2
+
+        try! Kraken.register(Service.self, tag: ServiceTypeString.Normal) { (a1: Int, a2: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+            XCTAssertEqual(a2, arg2)
+
+            return ServiceImp1() as Service
+        }
+
+        try! Kraken.register(Service.self, tag: ServiceTypeString.VIP) { (a1: Int, a2: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+            XCTAssertEqual(a2, arg2)
+
+            return ServiceImp2() as Service
+        }
+
+        // when
+        let serviceOne: Service = inject(Service.self, tag: ServiceTypeString.Normal, withArguments: arg1, arg2)
+
+        // then
+        XCTAssertTrue(serviceOne is ServiceImp1)
+
+        // and when
+        let serviceTwo: Service = inject(Service.self, tag: ServiceTypeString.VIP, withArguments: arg1, arg2)
+
+        // then
+        XCTAssertTrue(serviceTwo is ServiceImp2)
+    }
+
+    func testThatItResolvesInstanceWithoutTagWithThreeArguments() {
         // given
         let arg1 = 1, arg2 = 2, arg3 = 3
 
@@ -125,6 +203,39 @@ class RuntimeArgumentsTests: XCTestCase {
 
         // then
         XCTAssertTrue(service is ServiceImp1)
+    }
+
+    func testThatItResolvesInstanceWithTagWithThreeArguments() {
+        // given
+        let arg1 = 1, arg2 = 2, arg3 = 3
+
+        try! Kraken.register(Service.self, tag: ServiceTypeNumber.Normal) { (a1: Int, a2: Int, a3: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+            XCTAssertEqual(a2, arg2)
+            XCTAssertEqual(a3, arg3)
+
+            return ServiceImp1() as Service
+        }
+
+        try! Kraken.register(Service.self, tag: ServiceTypeNumber.VIP) { (a1: Int, a2: Int, a3: Int) -> Injectable in
+            XCTAssertEqual(a1, arg1)
+            XCTAssertEqual(a2, arg2)
+            XCTAssertEqual(a3, arg3)
+
+            return ServiceImp2() as Service
+        }
+
+        // when
+        let serviceOne: Service = inject(Service.self, tag: ServiceTypeNumber.Normal, withArguments: arg1, arg2, arg3)
+
+        // then
+        XCTAssertTrue(serviceOne is ServiceImp1)
+
+        // and when
+        let serviceTwo: Service = inject(Service.self, tag: ServiceTypeNumber.VIP, withArguments: arg1, arg2, arg3)
+
+        // then
+        XCTAssertTrue(serviceTwo is ServiceImp2)
     }
 
     func testThatItThrowsErrorIfFactoryIsNotRegisteredForDefinitionWithRuntimeArguments() {
