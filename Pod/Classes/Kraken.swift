@@ -48,7 +48,7 @@ public final class Kraken {
 
     }
 
-    public static func register(_ interface: Any, implementationType: Injectable.Type, tag: DependencyTagConvertible? = nil, scope: DependencyScope = .prototype, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
+    public static func register(_ interface: Any, tag: DependencyTagConvertible? = nil, implementationType: Injectable.Type,  scope: DependencyScope = .prototype, completionHandler: ((_ resolvedInstance: Injectable) -> ())? = nil) {
 
         let definitionKey = prepareDefinitionKey(forInterface: interface, andTag: tag)
         definitionMap[definitionKey] = ImplementationDefinition(scope: scope, implementationType: implementationType, completionHandler: completionHandler)
