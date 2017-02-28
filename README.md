@@ -32,6 +32,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - **Scopes**. Kraken supports 3 different scopes (or life cycle strategies): _Prototype_, _Singleton_, _EagerSingleton_;
 - **Named definitions**. You can register an `implementation type`, an `implementation` or a `factory` for a protocol or type;
 - **Runtime arguments**. You can register factories that accept up to 3 runtime arguments (You can create an extension to increase number of runtime arguments);
+- **Multiple definitions**. You can register multiple `implementation types`, `implementations` or `factories` per type or protocol;
 - **Circular dependencies**. Kraken can resolve circular dependencies;
 - **Auto-wiring**. Kraken can infer your components' dependencies injected in constructor and automatically resolve them.
 - **Easy configuration**. No complex container hierarchy, no unneeded functionality;
@@ -50,27 +51,30 @@ class DependencyConfigurator {
   static func bootstrapDependencies() {
 
     // Register a protocol or type by providing its implementation type
-    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self, scope: .Singleton)
+    Kraken.register(ServiceA.self, implementationType: ServiceAImpl.self, scope: .singleton)
+
+    // Register same protocol or type with different dependency by providing tag that can be either Int, String or Custom Type conforming to DependencyTagConvertible
+    Kraken.register(ServiceA.self, tag: CustomTag.One, implementationType: CustomFactory.self, scope: .singleton)
 
     // Register a protocol or type by providing its implementation
-    Kraken.register(ServiceC.self, implementation: dummyImplementation, scope: .Singleton)
+    Kraken.register(ServiceC.self, implementation: dummyImplementation, scope: .singleton)
 
     // Register a protocol or type having weak property to allow Kraken to handle circular dependencies
     // An example of such protocol (ServiceB) is given below
-    Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self, scope: .Singleton) {
+    Kraken.register(ServiceB.self, implementationType: ServiceBImpl.self, scope: .singleton) {
       (resolvedInstance: Injectable) -> () in
 
       let serviceB = resolvedInstance as! ServiceBImpl
-      serviceB.serviceA = injectWeak(ServiceA).value as! ServiceAImpl
+      serviceB.serviceA = injectWeak(ServiceA.self).value as! ServiceAImpl
     }
 
     // Register a protocol or type having runtime arguments to be injected in constructor
     Kraken.register(ServiceD.self) {
-      ServiceDImpl(host: $0, port: $1, serviceB: inject(ServiceB)) as ServiceD
+      ServiceDImpl(host: $0, port: $1, serviceB: inject(ServiceB.self)) as ServiceD
     }
 
     // Register generic protocols or types
-    Kraken.register(GenericDataSource<ServiceAImpl>.self, implementationType: ServiceAImplDataSource.self, scope: .EagerSingleton)
+    Kraken.register(GenericDataSource<ServiceAImpl>.self, implementationType: ServiceAImplDataSource.self, scope: .eagerSingleton)
 
     // Register a protocol or type whose components' dependencies are injected automatically by container
     Kraken.register(ServiceE.self) {
@@ -111,22 +115,36 @@ protocol ServiceA: Injectable {
 
 ```
 
+If you want to register multiple dependencies per type or protocol, you have to register with tag conforming to `DependencyTagConvertible`. You can declare a custom enum for this as shown below:
+
+```swift
+import Kraken
+
+enum CustomTag: Int, DependencyTagConvertible {
+    case One = 1, Two
+}
+
+```
+
 After bootstrapping dependencies, its injection is as simple as invoking `inject()` which can be of different types as shown below:
 
 ```swift
 import Kraken
 
 // Inject dependency whose implementation was registered
-let serviceC: ServiceC = inject(ServiceC)
+let serviceC: ServiceC = inject(ServiceC.self)
 
 // Inject dependency whose implementation type was registered
-let serviceA: ServiceA = inject(ServiceA)
+let serviceA: ServiceA = inject(ServiceA.self)
+
+// Inject dependency whose implementation type was registered with tag
+let serviceA: ServiceA = inject(ServiceA.self, tag: CustomTag.One)
 
 // Inject dependency providing runtime arguments
 let serviceD: ServiceD = inject(ServiceD.self, withArguments: "localhost", 8080)
 
 // Inject dependency which is resolved by container through AutoWiring
-let serviceE: ServiceE = inject(ServiceE)
+let serviceE: ServiceE = inject(ServiceE.self)
 
 ```
 
@@ -140,7 +158,7 @@ Kraken is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Kraken', '1.4.1'
+pod 'Kraken', '1.5.0'
 ```
 
 #### Manually
